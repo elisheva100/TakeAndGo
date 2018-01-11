@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Contact us"
+        android:textSize="40dp"
+        android:textStyle="bold"
+        android:gravity ="center"
+        android:layout_marginBottom="20dp"
+        android:layout_marginTop="70dp"/>
+    <Button
+        android:id="@+id/aboutPhoneButton"
+        style="@style/AboutUsTextViewStyle"
+        android:text="   02-6253996"
+        android:drawableLeft="@mipmap/ic_phone"/>
+    <Button
+        android:id="@+id/aboutMailButton"
+        style="@style/AboutUsTextViewStyle"
+        android:text="   service@takengo.com"
+        android:drawableLeft="@mipmap/ic_mail"/>
+    <Button
+        android:id="@+id/aboutWebsiteButton"
+        style="@style/AboutUsTextViewStyle"
+        android:text="   www.takendgo.com"
+        android:drawableLeft="@mipmap/ic_website"/>
+    <Button
+        android:id="@+id/aboutLocationButton"
+        style="@style/AboutUsTextViewStyle"
+        android:text="   Ben Yehuda 1 Jerusalem"
+        android:drawableLeft="@mipmap/location_launcher"/>
+
+</LinearLayout>
