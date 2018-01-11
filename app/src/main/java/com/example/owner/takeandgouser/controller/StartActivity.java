@@ -16,3 +16,4 @@ public class StartActivity extends AppCompatActivity {
         startActivity(intent);
     }
 }
+//dedw
