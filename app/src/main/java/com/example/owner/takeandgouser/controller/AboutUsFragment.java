@@ -1,12 +1,15 @@
 package com.example.owner.takeandgouser.controller;
 
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+
 
 import com.example.owner.takeandgouser.R;
 
@@ -18,6 +21,7 @@ public class AboutUsFragment extends Fragment implements View.OnClickListener {
     private Button aboutMailButton;
     private Button aboutWebsiteButton;
     private Button aboutLocationButton;
+    private View view;
 
 
     public AboutUsFragment() {
@@ -29,7 +33,10 @@ public class AboutUsFragment extends Fragment implements View.OnClickListener {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_about_us, container, false);
+        //return inflater.inflate(R.layout.fragment_about_us, container, false);
+        view = inflater.inflate(R.layout.fragment_about_us, container, false);
+        findViews();
+        return view;
     }
     /**
      * Find the Views in the layout<br />
@@ -58,16 +65,46 @@ public class AboutUsFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         if ( v == aboutPhoneButton ) {
-            // Handle clicks for aboutPhoneButton
+            phoneApp();
         } else if ( v == aboutMailButton ) {
-            // Handle clicks for aboutMailButton
+            mailApp();
         } else if ( v == aboutWebsiteButton ) {
-            // Handle clicks for aboutWebsiteButton
+            websiteApp();
         } else if ( v == aboutLocationButton ) {
-            // Handle clicks for aboutLocationButton
+            mapApp();
         }
     }
-
+    private void phoneApp()
+    {
+        Intent intent = new Intent(Intent.ACTION_DIAL);
+        intent.setData(Uri.parse("tel:"));
+        Intent chooser = Intent.createChooser(intent,"Call");
+        startActivity(chooser);
+    }
+    private void mailApp()
+    {
+        Intent intent = new Intent(Intent.ACTION_SEND);
+        intent.setData(Uri.parse("mailto:"));
+        String to = "service@takengo.com";
+        intent.putExtra(Intent.EXTRA_EMAIL,to);
+        intent.setType("message/rfc822");
+        Intent chooser = Intent.createChooser(intent,"Send Email");
+        startActivity(chooser);
+    }
+private void websiteApp()
+{
+    Intent intent = new Intent(Intent.ACTION_VIEW);
+    intent.setData(Uri.parse("https://www.car2go.com/US/en/"));
+    Intent chooser = Intent.createChooser(intent,"Open browser");
+    startActivity(chooser);
+}
+private void mapApp()
+{
+    Intent intent = new Intent(Intent.ACTION_VIEW);
+    intent.setData(Uri.parse("geo:31.782113, 35.219251"));
+    Intent chooser = Intent.createChooser(intent,"Launch Maps");
+    startActivity(chooser);
+}
 }
 
 
