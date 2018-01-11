@@ -22,7 +22,6 @@
             </intent-filter>
         </activity>
         <activity android:name=".controller.LoginActivity" />
-        <activity android:name=".controller.StartActivity" ></activity>
     </application>
 
 </manifest>
