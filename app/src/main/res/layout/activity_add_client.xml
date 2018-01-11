@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_add_client"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.example.owner.takeandgouser.controller.AddClientActivity"
+    android:weightSum="1">
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.41" />
+
+    <EditText
+        android:id="@+id/clientIdEditText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="@string/clientId"
+        android:inputType="number" />
+
+
+    <EditText
+        android:id="@+id/FirstNameEditText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="@string/firsName"
+        android:inputType="text" />
+
+    <EditText
+        android:id="@+id/LastNameEditText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="@string/lastName"
+        android:inputType="text" />
+    <EditText
+        android:id="@+id/PhoneNumberEditText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="@string/phoneNumber"
+        android:inputType="phone" />
+
+    <EditText
+        android:id="@+id/EmailEditText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="@string/Email"
+        android:inputType="textEmailAddress" />
+
+
+
+    <LinearLayout
+        android:layout_width="369dp"
+        android:layout_height="wrap_content"
+        android:weightSum="1">
+
+        <TextView
+            android:id="@+id/birthdayTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/birthday"
+            android:textSize="18sp"
+            android:gravity="left"
+
+            />
+        <Space
+            android:layout_width="10dp"
+            android:layout_height="wrap_content" />
+
+        <Button
+            android:id="@+id/datePickerButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/DodgerBlue"
+            android:background="@color/PowderBlue"
+            android:text="@string/pick_date" />
+
+        <ImageView
+            android:id="@+id/imageView5"
+            android:layout_width="49dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.04"
+            app:srcCompat="@drawable/calender" />
+    </LinearLayout>
+
+
+    <EditText
+        android:id="@+id/CreditCardEditText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="@string/creditCard"
+        android:inputType="number" />
+
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="73dp"
+        android:layout_weight="0.34">
+
+        <Button
+            android:id="@+id/addClientButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentStart="true"
+            android:textColor="@color/DodgerBlue"
+            android:background="@color/PowderBlue"
+            android:text="@string/AddClient" />
+
+    </RelativeLayout>
+
+</LinearLayout>
