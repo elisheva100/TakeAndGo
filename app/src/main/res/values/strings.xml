@@ -4,5 +4,14 @@
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
+    <string name="creditCard">Credit card</string>
+    <string name="birthday">birthday</string>
+    <string name="Email">Email</string>
+    <string name="phoneNumber">Phone</string>
+    <string name="lastName">Last name</string>
+    <string name="firsName">First name</string>
+    <string name="clientId">Id</string>
+    <string name="pick_date">Pick date</string>
+    <string name="AddClient">Add client</string>
     <string name="action_settings">Settings</string>
 </resources>
