@@ -36,7 +36,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
     private Button loginButton;
     private TextView AskUserView;
     private TextView goToRegisterView;
-    private boolean isTextChanged;
+    private boolean isTextChanged = false;
     private  String client_id;
 
     /**
@@ -78,6 +78,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
             loadSharedPreferences();
         } else if ( v == clearButton ) {
             clearSharedPreferences();
+            isTextChanged = false;
         } else if ( v == loginButton ) {
             Login(); // Handle clicks for loginButton
         }
@@ -137,14 +138,40 @@ public class LoginActivity extends Activity implements View.OnClickListener {
         if ( isTextChanged){
             //if(validateInput()) {
                 //if ( saveSharedPreferences().isChecked())
-            validateInput();
-                saveSharedPreferences();
+            //validateInput();
+            try{
+            new AsyncTask<Void, Void, Boolean>() {
+
+                @Override
+                protected void onPostExecute(Boolean isExist) {
+                    super.onPostExecute(isExist);
+                    if (!isExist) {
+                        clearSharedPreferences();
+                        Toast.makeText(LoginActivity.this, "Your details doesn't exist in the system, please registe first", Toast.LENGTH_LONG).show();
+                    }
+                }
+
+                @Override
+                protected Boolean doInBackground(Void... params) {
+                    try {
+                        return DBManagerFactory.getManager().isExistClient(client_id);
+                    } catch (Exception e) {
+                        return false;
+                    }
+                }
+
+            }.execute();
+
+        } catch (Exception e) {
+            Toast.makeText(getBaseContext(), e.getMessage(), Toast.LENGTH_LONG).show();
+        }
+                //saveSharedPreferences();
                 goToMenu();
             //}
         }
         else {
            // if( saveSharedPreferences().isChecked())
-            saveSharedPreferences();
+           // saveSharedPreferences();
             goToMenu();
         }
     }
@@ -170,18 +197,18 @@ public class LoginActivity extends Activity implements View.OnClickListener {
 
     private void goToMenu() {
         Intent intent = new Intent(this,MenuActivity.class);
-        intent.putExtra("CLIENT_ID",client_id);
+        //intent.putExtra("CLIENT_ID",client_id);
         startActivity(intent);
     }
 
 
-    public void validateInput() {
+   /* public void validateInput() {
         try {
-            new AsyncTask<Void, Void, Boolean>() {
+            new AsyncTask<String, Void, Boolean>() {
 
                 @Override
-                protected void onPostExecute(final Boolean isExist) {
-                    //super.onPostExecute(isExist);
+                protected void onPostExecute(Boolean isExist) {
+                    super.onPostExecute(isExist);
                      if (!isExist) {
                          clearSharedPreferences();
                          Toast.makeText(LoginActivity.this, "Your details doesn't exist in the system, please registe first", Toast.LENGTH_LONG).show();
@@ -189,7 +216,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
                 }
 
                 @Override
-                protected Boolean doInBackground(Void... params) {
+                protected Boolean doInBackground(String... params) {
                     try {
                         return DBManagerFactory.getManager().isExistClient(client_id);
                     } catch (Exception e) {
@@ -202,6 +229,6 @@ public class LoginActivity extends Activity implements View.OnClickListener {
         } catch (Exception e) {
             Toast.makeText(getBaseContext(), e.getMessage(), Toast.LENGTH_LONG).show();
         }
-    }
+    }*/
 
 }
