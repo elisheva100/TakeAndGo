@@ -1,6 +1,7 @@
 package com.example.owner.takeandgouser.controller;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.view.View;
@@ -16,13 +17,14 @@ import android.view.MenuItem;
 import com.example.owner.takeandgouser.R;
 
 public class MenuActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+
+       Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -99,5 +101,37 @@ public class MenuActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+
+
+
+
+
+
+    private NavigationView navView;
+    private Toolbar toolbar;
+    private FloatingActionButton fab;
+
+    /**
+     * Find the Views in the layout<br />
+     * <br />
+     * Auto-created on 2018-01-12 03:01:30 by Android Layout Finder
+     * (http://www.buzzingandroid.com/tools/android-layout-finder)
+     */
+    private void findViews() {
+        navView = (NavigationView) findViewById(R.id.nav_view);
+        toolbar = (Toolbar)findViewById( R.id.toolbar );
+        fab = (FloatingActionButton)findViewById( R.id.fab );
+
+        fab.setOnClickListener( this );
+    }
+
+
+    @Override
+    public void onClick(View v) {
+        if ( v == fab ) {
+            // Handle clicks for fab
+        }
     }
 }

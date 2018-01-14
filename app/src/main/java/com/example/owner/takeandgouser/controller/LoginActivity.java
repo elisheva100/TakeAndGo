@@ -9,6 +9,7 @@ import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,6 +29,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
     }
 
 
+    // private LinearLayout activityMain;
     private EditText nameEditText;
     private EditText idEditText;
     private Button saveButton;
@@ -36,8 +38,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
     private Button loginButton;
     private TextView AskUserView;
     private TextView goToRegisterView;
-    private boolean isTextChanged = false;
-    private  String client_id;
+    public String client_id;
 
     /**
      * Find the Views in the layout<br />
@@ -46,20 +47,20 @@ public class LoginActivity extends Activity implements View.OnClickListener {
      * (http://www.buzzingandroid.com/tools/android-layout-finder)
      */
     private void findViews() {
-        //activityMain = (LinearLayout)findViewById( R.id.activity_menu );
-        nameEditText = (EditText)findViewById( R.id.nameEditText );
-        idEditText = (EditText)findViewById( R.id.idEditText );
-        saveButton = (Button)findViewById( R.id.saveButton );
-        loadButton = (Button)findViewById( R.id.loadButton );
-        clearButton = (Button)findViewById( R.id.clearButton );
-        loginButton = (Button)findViewById( R.id.loginButton );
-        AskUserView = (TextView)findViewById( R.id.AskUserView );
-        goToRegisterView = (TextView)findViewById( R.id.goToRegisterView );
+        //activityMain = (LinearLayout)findViewById( R.id.activity_main );
+        nameEditText = (EditText) findViewById(R.id.nameEditText);
+        idEditText = (EditText) findViewById(R.id.idEditText);
+        saveButton = (Button) findViewById(R.id.saveButton);
+        loadButton = (Button) findViewById(R.id.loadButton);
+        clearButton = (Button) findViewById(R.id.clearButton);
+        loginButton = (Button) findViewById(R.id.loginButton);
+        AskUserView = (TextView) findViewById(R.id.AskUserView);
+        goToRegisterView = (TextView) findViewById(R.id.goToRegisterView);
 
-        saveButton.setOnClickListener( this );
-        loadButton.setOnClickListener( this );
-        clearButton.setOnClickListener( this );
-        loginButton.setOnClickListener( this );
+        saveButton.setOnClickListener(this);
+        loadButton.setOnClickListener(this);
+        clearButton.setOnClickListener(this);
+        loginButton.setOnClickListener(this);
         goToRegisterView.setOnClickListener(this);
     }
 
@@ -71,18 +72,18 @@ public class LoginActivity extends Activity implements View.OnClickListener {
      */
     @Override
     public void onClick(View v) {
-        if ( v == saveButton ) {
+        if (v == saveButton) {
             saveSharedPreferences();
-            isTextChanged = true;
-        } else if ( v == loadButton ) {
+            //isTextChanged = true;
+        } else if (v == loadButton) {
             loadSharedPreferences();
-        } else if ( v == clearButton ) {
+            //isTextChanged = true;
+        } else if (v == clearButton) {
             clearSharedPreferences();
-            isTextChanged = false;
-        } else if ( v == loginButton ) {
-            Login(); // Handle clicks for loginButton
-        }
-        else if ( v == goToRegisterView ) {
+            //isTextChanged = true;
+        } else if (v == loginButton) {
+            Login();
+        } else if (v == goToRegisterView) {
             Register();
         }
     }
@@ -130,74 +131,21 @@ public class LoginActivity extends Activity implements View.OnClickListener {
     }
 
     private void Register() {
-        Intent intent = new Intent(this,AddClientActivity.class);
+        Intent intent = new Intent(this, AddClientActivity.class);
         startActivity(intent);
     }
-//start fix
+
+    //start fix
     private void Login() {
-        if ( isTextChanged){
-            //if(validateInput()) {
-                //if ( saveSharedPreferences().isChecked())
-            //validateInput();
-            try{
-            new AsyncTask<Void, Void, Boolean>() {
 
-                @Override
-                protected void onPostExecute(Boolean isExist) {
-                    super.onPostExecute(isExist);
-                    if (!isExist) {
-                        clearSharedPreferences();
-                        Toast.makeText(LoginActivity.this, "Your details doesn't exist in the system, please registe first", Toast.LENGTH_LONG).show();
-                    }
-                }
+        goToMenu();
+        new MyAsyncTask().execute(client_id, "");
 
-                @Override
-                protected Boolean doInBackground(Void... params) {
-                    try {
-                        return DBManagerFactory.getManager().isExistClient(client_id);
-                    } catch (Exception e) {
-                        return false;
-                    }
-                }
-
-            }.execute();
-
-        } catch (Exception e) {
-            Toast.makeText(getBaseContext(), e.getMessage(), Toast.LENGTH_LONG).show();
-        }
-                //saveSharedPreferences();
-                goToMenu();
-            //}
-        }
-        else {
-           // if( saveSharedPreferences().isChecked())
-           // saveSharedPreferences();
-            goToMenu();
-        }
     }
 
-    /*private boolean validateInput() {
-        String message = null;
-
-       /* String name = nameEditText.getText().toString();
-        String id = idEditText.getText().toString();
-        if(!manager.existUserName(name))
-            message = "this user name does not exist in the system";
-        if(manager.findClientByUser(name) == null)
-            message = "this user name is not associated with any client";
-        else
-            idToPass = manager.findClientByUser(userName).get_id();
-        if(manager.userClientMatch(userName,password) == -1)
-            message = "password does not match user name";
-        if(message == null)
-            return true;
-        Toast.makeText(this,message,Toast.LENGTH_SHORT).show();
-        return false;
-    }*/
-
     private void goToMenu() {
-        Intent intent = new Intent(this,MenuActivity.class);
-        //intent.putExtra("CLIENT_ID",client_id);
+        Intent intent = new Intent(this, MenuActivity.class);
+        intent.putExtra("CLIENT_ID", client_id);
         startActivity(intent);
     }
 
@@ -209,16 +157,17 @@ public class LoginActivity extends Activity implements View.OnClickListener {
                 @Override
                 protected void onPostExecute(Boolean isExist) {
                     super.onPostExecute(isExist);
-                     if (!isExist) {
-                         clearSharedPreferences();
-                         Toast.makeText(LoginActivity.this, "Your details doesn't exist in the system, please registe first", Toast.LENGTH_LONG).show();
-                     }
+                    if (!isExist) {
+                        clearSharedPreferences();
+                        Toast.makeText(LoginActivity.this, "Your details doesn't exist in the system, please registe first", Toast.LENGTH_LONG).show();
+                    } else
+                        goToMenu();
                 }
 
                 @Override
-                protected Boolean doInBackground(String... params) {
+                protected Boolean doInBackground(String... client_id) {
                     try {
-                        return DBManagerFactory.getManager().isExistClient(client_id);
+                        return DBManagerFactory.getManager().isExistClient(client_id[0]);
                     } catch (Exception e) {
                         return false;
                     }
@@ -231,4 +180,33 @@ public class LoginActivity extends Activity implements View.OnClickListener {
         }
     }*/
 
+
+    private class MyAsyncTask extends AsyncTask<String, Void, Boolean> {
+
+        protected void fef()
+        {
+           String id = idEditText.getText().toString();
+        }
+        @Override
+        protected void onPostExecute(Boolean isExist) {
+            super.onPostExecute(isExist);
+            if (isExist == false) {
+                clearSharedPreferences();
+                Toast.makeText(LoginActivity.this, "Your details doesn't exist in the system, please registe first", Toast.LENGTH_LONG).show();
+            }else
+                goToMenu();
+        }
+
+        @Override
+        protected Boolean doInBackground(String... id) {
+            try {
+                saveSharedPreferences();
+                return DBManagerFactory.getManager().isExistClient(id[0]);
+            } catch (Exception e) {
+                return false;
+            }
+        }
+    }
+
 }
+
