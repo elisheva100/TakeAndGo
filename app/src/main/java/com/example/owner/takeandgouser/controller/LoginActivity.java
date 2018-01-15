@@ -108,6 +108,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         }
         if (sharedPreferences.contains("ID")) {
             idEditText.setText(sharedPreferences.getString("ID", null));
+            client_id = idEditText.getText().toString();
             Toast.makeText(this, "load id", Toast.LENGTH_SHORT).show();
         }
     }
@@ -125,6 +126,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             editor.commit();
 
             client_id = id;
+
             Toast.makeText(this, "save name and id Preferences", Toast.LENGTH_SHORT).show();
         } catch (Exception ex) {
             Toast.makeText(this, "failed to save Preferences", Toast.LENGTH_SHORT).show();
@@ -136,12 +138,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         startActivity(intent);
     }
 
-    //start fix
+
     private void Login() {
-
-        goToMenu();
         new MyAsyncTask().execute(client_id, "");
-
     }
 
     private void goToMenu() {
@@ -149,37 +148,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         intent.putExtra("CLIENT_ID", client_id);
         startActivity(intent);
     }
-
-
-   /* public void validateInput() {
-        try {
-            new AsyncTask<String, Void, Boolean>() {
-
-                @Override
-                protected void onPostExecute(Boolean isExist) {
-                    super.onPostExecute(isExist);
-                    if (!isExist) {
-                        clearSharedPreferences();
-                        Toast.makeText(LoginActivity.this, "Your details doesn't exist in the system, please registe first", Toast.LENGTH_LONG).show();
-                    } else
-                        goToMenu();
-                }
-
-                @Override
-                protected Boolean doInBackground(String... client_id) {
-                    try {
-                        return DBManagerFactory.getManager().isExistClient(client_id[0]);
-                    } catch (Exception e) {
-                        return false;
-                    }
-                }
-
-            }.execute();
-
-        } catch (Exception e) {
-            Toast.makeText(getBaseContext(), e.getMessage(), Toast.LENGTH_LONG).show();
-        }
-    }*/
 
 
     private class MyAsyncTask extends AsyncTask<String, Void, Boolean> {
@@ -192,8 +160,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         protected void onPostExecute(Boolean isExist) {
             super.onPostExecute(isExist);
             if (isExist == false) {
-                clearSharedPreferences();
                 Toast.makeText(LoginActivity.this, "Your details doesn't exist in the system, please registe first", Toast.LENGTH_LONG).show();
+                clearSharedPreferences();
             }else
                 goToMenu();
         }
@@ -201,7 +169,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         @Override
         protected Boolean doInBackground(String... id) {
             try {
-                saveSharedPreferences();
+               // saveSharedPreferences();
                 return DBManagerFactory.getManager().isExistClient(id[0]);
             } catch (Exception e) {
                 return false;
