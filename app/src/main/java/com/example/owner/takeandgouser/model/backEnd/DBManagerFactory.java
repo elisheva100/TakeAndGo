@@ -1,6 +1,5 @@
 package com.example.owner.takeandgouser.model.backEnd;
 
-import com.example.owner.takeandgouser.model.datasource.List_DBManager;
 import com.example.owner.takeandgouser.model.datasource.MySQL_DBManager;
 
 /**
@@ -13,8 +12,8 @@ public class DBManagerFactory {
     public static DB_manager getManager() {
 
         if (manager == null) {
-            manager = new List_DBManager();
-            //manager = new MySQL_DBManager();
+            //manager = new List_DBManager();
+            manager = new MySQL_DBManager();
         }
 
         return manager;

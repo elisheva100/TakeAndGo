@@ -11,6 +11,7 @@ import com.example.owner.takeandgouser.model.entities.Car;
 import com.example.owner.takeandgouser.model.entities.CarModel;
 import com.example.owner.takeandgouser.model.entities.Client;
 import com.example.owner.takeandgouser.model.entities.Car;
+import com.example.owner.takeandgouser.model.entities.Order;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -33,60 +34,10 @@ public class MySQL_DBManager implements DB_manager {
 
     public void printLog(Exception message) { Log.d(this.getClass().getName(),"Exception-->\n"+message); }
 
-    //region car
-    @Override
-    public long addCar(ContentValues car) throws Exception {
-        Car c =AgencyConsts.ContentValuesToCar(car);
-        if (isExistCar(c.getNumber()))
-            throw new Exception ("This car is already exists!!");
-        try {
-            String result = PHPtools.POST(WEB_URL + "/add_car.php", car);
-            result = result.trim();
-            long id = Long.parseLong(result);
-            if (id > 0)
-                SetUpdate();
-            printLog("addCar:\n" + result);
-            return id;
-        } catch (IOException e) {
-            printLog("addCar Exception:\n" + e);
-            return -1;
-        }
-    }
-
-    @Override
-    public boolean isExistCar(long n) {
-        for (Car item : this.getCars())
-            if(item.getNumber()==n)
-                return true;
-        return false;
-    }
-
-    @Override
-    public List<Car> getCars() {
-        List<Car> result = new ArrayList<Car>();
-
-        try {
-            String str = PHPtools.GET(WEB_URL + "/get_cars.php");
-            JSONArray array = new JSONObject(str).getJSONArray("cars");
-
-            for (int i = 0; i < array.length(); i++) {
-                JSONObject jsonObject = array.getJSONObject(i);
-                ContentValues contentValues = PHPtools.JsonToContentValues(jsonObject);
-                Car car = AgencyConsts.ContentValuesToCar(contentValues);
-                result.add(car);
-            }
-            return result;
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-    //endregion
-
     //region client
     @Override
     public String addClient(ContentValues client) throws Exception {
-        Client c = AgencyConsts.ContentValuesToClient(client);
+        Client c =AgencyConsts.ContentValuesToClient(client);
         if (isExistClient(c.getId()))
             throw new Exception("This client is already exists!!");
         try {
@@ -101,6 +52,8 @@ public class MySQL_DBManager implements DB_manager {
             return null;
         }
     }
+
+
 
     @Override
     //checks if there is a client with that id
@@ -133,35 +86,69 @@ public class MySQL_DBManager implements DB_manager {
     }
     //endregion
 
-    //region branch
+    //region cars
     @Override
-    public int addBranch(ContentValues branch) throws Exception {
-        Branch b =AgencyConsts.ContentValuesToBranch(branch);
-        if (isExistBranch(b.getBranchNumber()))
-            throw new Exception("This branch is already exists!!");
+    public long updateCar(ContentValues car) throws Exception
+    {
         try {
-            String result = PHPtools.POST(WEB_URL + "/add_branch.php", branch);
+            String result = PHPtools.POST(WEB_URL + "/update_car.php", car);
             result = result.trim();
-            int id = Integer.parseInt(result);
-            if (id > 0)
+            long numResult = Long.parseLong(result);
+            if (result != null)
                 SetUpdate();
-            printLog("addBranch:\n" + result);
-            return  id;
+            printLog("updateCar:\n" + result);
+            return numResult;
         } catch (IOException e) {
-            printLog("addBranch Exception:\n" + e);
+            printLog("updateCar Exception:\n" + e);
             return -1;
         }
     }
-
     @Override
-    //checks if there is a client with that id
-    public boolean isExistBranch(int n)
-    {
-        for (Branch item : this.getBranches())
-            if(item.getBranchNumber()==n)
-                return true;
-        return false;
+
+    public List<Car> getAvailableCars() {
+        List<Car> result = new ArrayList<Car>();
+
+        try {
+            String str = PHPtools.GET(WEB_URL + "/get_available_cars.php");
+            JSONArray array = new JSONObject(str).getJSONArray("Available cars");
+
+            for (int i = 0; i < array.length(); i++) {
+                JSONObject jsonObject = array.getJSONObject(i);
+                ContentValues contentValues = PHPtools.JsonToContentValues(jsonObject);
+                Car car = AgencyConsts.ContentValuesToCar(contentValues);
+                result.add(car);
+            }
+            return result;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
     }
+//TODO: check the php file' right now it's not working.
+    public List<Car> getAvailableCarsForBranch(){
+        List<Car> result = new ArrayList<Car>();
+
+        try {
+            String str = PHPtools.GET(WEB_URL + "/available_cars_by_branch.php");
+            JSONArray array = new JSONObject(str).getJSONArray("Available cars");
+
+            for (int i = 0; i < array.length(); i++) {
+                JSONObject jsonObject = array.getJSONObject(i);
+                ContentValues contentValues = PHPtools.JsonToContentValues(jsonObject);
+                Car car = AgencyConsts.ContentValuesToCar(contentValues);
+                result.add(car);
+            }
+            return result;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+
+    }
+    //endregion
+
+    //region branch
+
 
     @Override
     public List<Branch> getBranches() {
@@ -184,54 +171,61 @@ public class MySQL_DBManager implements DB_manager {
     }
     //endregion
 
-    //region car model
+    //region order
     @Override
-    public int addCarModel(ContentValues model) throws Exception {
-        CarModel c =AgencyConsts.ContentValuesToCarModel(model);
-        if (isExistModel(c.getCode()))
-            throw new Exception("This model is already exists!!");
+    public int addOrder(ContentValues order)throws Exception
+    {
         try {
-            String result = PHPtools.POST(WEB_URL + "/add_car_model.php", model);
+            String result = PHPtools.POST(WEB_URL + "/add_order.php", order);
             result = result.trim();
-            int id = Integer.parseInt(result);
-            if (id > 0)
+            int numResult = Integer.parseInt(result);
+            if (result != null)
                 SetUpdate();
-            printLog("addCar:\n" + result);
-            return id;
+            printLog("addOrder:\n" + result);
+            return numResult;
         } catch (IOException e) {
-            printLog("addCar Exception:\n" + e);
+            printLog("addOrder Exception:\n" + e);
             return -1;
         }
     }
 
     @Override
-    public boolean isExistModel(int n)
-    {
-        for (CarModel item : this.getCarModels())
-            if(item.getCode()==n)
-                return true;
-        return false;
+public int closeOrder(ContentValues order)throws Exception{
+    try {
+        String result = PHPtools.POST(WEB_URL + "/close_order.php", order);
+        result = result.trim();
+        int numResult = Integer.parseInt(result);
+        if (result != null)
+            SetUpdate();
+        printLog("addOrder:\n" + result);
+        return numResult;
+    } catch (IOException e) {
+        printLog("addOrder Exception:\n" + e);
+        return -1;
     }
 
-    @Override
-    public List<CarModel> getCarModels() {
-        List<CarModel> result = new ArrayList<CarModel>();
+}
+@Override
+    public List<Order> getOpenOrders()
+    {
+        List<Order> result = new ArrayList<Order>();
         try {
-            String str = PHPtools.GET(WEB_URL + "/get_carModels.php");
-            JSONArray array = new JSONObject(str).getJSONArray("carModels");
+            String str = PHPtools.GET(WEB_URL + "/get_open_orders.php");
+            JSONArray array = new JSONObject(str).getJSONArray("Open orders");
 
             for (int i = 0; i < array.length(); i++) {
                 JSONObject jsonObject = array.getJSONObject(i);
                 ContentValues contentValues = PHPtools.JsonToContentValues(jsonObject);
-                CarModel carModel = AgencyConsts.ContentValuesToCarModel(contentValues);
-                result.add(carModel);
+                Order order = AgencyConsts.ContentValuesToOrder(contentValues);
+                result.add(order);
             }
             return result;
         } catch (Exception e) {
             e.printStackTrace();
         }
         return null;
+
     }
-    //endregion
+//end region
 }
 

@@ -26,9 +26,9 @@ public class AddClientActivity extends AppCompatActivity implements View.OnClick
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getSupportActionBar().setLogo(R.mipmap.my_car);
-        getSupportActionBar().setDisplayUseLogoEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
+//        getSupportActionBar().setLogo(R.mipmap.my_car);
+//        getSupportActionBar().setDisplayUseLogoEnabled(true);
+//        getSupportActionBar().setDisplayShowHomeEnabled(true);
         setContentView(R.layout.activity_add_client);
         Calendar calender = Calendar.getInstance();
         //myDay = calender.get(Calendar.DAY_OF_MONTH);

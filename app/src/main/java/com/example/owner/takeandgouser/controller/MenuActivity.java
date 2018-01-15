@@ -5,7 +5,9 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.view.View;
+import android.widget.TextView;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -17,7 +19,7 @@ import android.view.MenuItem;
 import com.example.owner.takeandgouser.R;
 
 public class MenuActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
+        implements NavigationView.OnNavigationItemSelectedListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,7 +87,7 @@ public class MenuActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_camera) {
-            // Handle the camera action
+            aboutCompanyFragment();
         } else if (id == R.id.nav_gallery) {
 
         } else if (id == R.id.nav_slideshow) {
@@ -105,13 +107,9 @@ public class MenuActivity extends AppCompatActivity
 
 
 
-
-
-
-
-    private NavigationView navView;
-    private Toolbar toolbar;
-    private FloatingActionButton fab;
+//    private NavigationView navView;
+//    private Toolbar toolbar;
+//    private FloatingActionButton fab;
 
     /**
      * Find the Views in the layout<br />
@@ -119,19 +117,24 @@ public class MenuActivity extends AppCompatActivity
      * Auto-created on 2018-01-12 03:01:30 by Android Layout Finder
      * (http://www.buzzingandroid.com/tools/android-layout-finder)
      */
-    private void findViews() {
-        navView = (NavigationView) findViewById(R.id.nav_view);
-        toolbar = (Toolbar)findViewById( R.id.toolbar );
-        fab = (FloatingActionButton)findViewById( R.id.fab );
-
-        fab.setOnClickListener( this );
-    }
-
-
-    @Override
-    public void onClick(View v) {
-        if ( v == fab ) {
-            // Handle clicks for fab
-        }
-    }
+//    private void findViews() {
+//        navView = (NavigationView) findViewById(R.id.nav_view);
+//        toolbar = (Toolbar)findViewById( R.id.toolbar );
+//        fab = (FloatingActionButton)findViewById( R.id.fab );
+//
+//        fab.setOnClickListener( this );
+//    }
+//
+//
+//    @Override
+//    public void onClick(View v) {
+//        if ( v == fab ) {
+//            // Handle clicks for fab
+//        }
+//    }
+    	    private void aboutCompanyFragment() {
+        	        AboutUsFragment fragment = new AboutUsFragment();
+        	        FragmentManager manager = getSupportFragmentManager();
+        	        manager.beginTransaction().replace(R.id.content_frame,fragment).commit();
+            }
 }
