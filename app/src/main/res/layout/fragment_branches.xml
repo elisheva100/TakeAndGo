@@ -1,0 +1,41 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.owner.takeandgouser.controller.BranchesFragment">
+
+    <ExpandableListView
+        android:id="@+id/branchesExpandableList"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    </ExpandableListView>
+
+   <!-- <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="visible">
+
+        <ListView
+            android:id="@+id/branchesList"
+            android:layout_width="318dp"
+            android:layout_height="398dp"
+            android:layout_marginLeft="33dp"
+            android:layout_marginTop="36dp"
+            android:visibility="visible"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/btnBack"
+            android:layout_width="53dp"
+            android:layout_height="48dp"
+            android:layout_marginLeft="240dp"
+            android:layout_marginTop="447dp"
+            android:background="@android:drawable/presence_busy"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:layout_editor_absoluteX="269dp"
+            tools:layout_editor_absoluteY="444dp" />
+    </android.support.constraint.ConstraintLayout>-->
+
+</FrameLayout>

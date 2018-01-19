@@ -14,16 +14,21 @@
         <activity android:name=".controller.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity android:name=".controller.LoginActivity" />
         <activity android:name=".controller.MenuActivity" />
+
         <class android:name=".controller.Legal" />
+
         <activity android:name=".controller.AddClientActivity" />
+
         <fragment android:name=".controller.AboutUsFragment" />
+        <fragment android:name=".controller.BranchesFragment" />
 
-
+        <activity android:name=".controller.BranchListAdapter"></activity>
     </application>
 
 </manifest>

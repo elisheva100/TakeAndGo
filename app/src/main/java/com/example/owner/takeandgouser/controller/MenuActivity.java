@@ -91,7 +91,7 @@ public class MenuActivity extends AppCompatActivity
         } else if (id == R.id.nav_gallery) {
 
         } else if (id == R.id.nav_slideshow) {
-
+            showBranches();
         } else if (id == R.id.nav_manage) {
 
         } else if (id == R.id.nav_share) {
@@ -132,9 +132,15 @@ public class MenuActivity extends AppCompatActivity
 //            // Handle clicks for fab
 //        }
 //    }
-    	    private void aboutCompanyFragment() {
+    private void aboutCompanyFragment() {
         	        AboutUsFragment fragment = new AboutUsFragment();
         	        FragmentManager manager = getSupportFragmentManager();
         	        manager.beginTransaction().replace(R.id.content_frame,fragment).commit();
             }
+
+    private void showBranches() {
+        BranchesFragment fragment = new BranchesFragment();
+        FragmentManager manager = getSupportFragmentManager();
+        manager.beginTransaction().replace(R.id.content_frame,fragment).commit();
+    }
 }
