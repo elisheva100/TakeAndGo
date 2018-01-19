@@ -23,6 +23,31 @@ import com.example.owner.takeandgouser.R;
 
 public class MenuActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+    private void exitApp()
+    {
+        this.finish();
+        Intent intent = new Intent(Intent.ACTION_MAIN);
+        intent.addCategory(Intent.CATEGORY_HOME);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+    }
+    private void exit_dialog()
+    {
+
+        new AlertDialog.Builder(this)
+                .setIcon(android.R.drawable.ic_menu_close_clear_cancel)
+                .setTitle("Closing App")
+                .setMessage("Are you sure you want to close this app?")
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        exitApp();
+                    }
+
+                })
+                .setNegativeButton("No", null)
+                .show();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -146,43 +171,19 @@ public class MenuActivity extends AppCompatActivity
         	        FragmentManager manager = getSupportFragmentManager();
         	        manager.beginTransaction().replace(R.id.content_frame,fragment).commit();
             }
-<<<<<<< HEAD
+
     private void availableCarsFragment() {
         AvailableCarsFragment fragment = new AvailableCarsFragment();
         FragmentManager manager = getSupportFragmentManager();
         manager.beginTransaction().replace(R.id.content_frame,fragment).commit();
     }
-    private void exitApp()
-    {
-        this.finish();
-        Intent intent = new Intent(Intent.ACTION_MAIN);
-        intent.addCategory(Intent.CATEGORY_HOME);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivity(intent);
-    }
-    private void exit_dialog()
-    {
 
-        new AlertDialog.Builder(this)
-                .setIcon(android.R.drawable.ic_menu_close_clear_cancel)
-                .setTitle("Closing App")
-                .setMessage("Are you sure you want to close this app?")
-                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        exitApp();
-                    }
 
-                })
-                .setNegativeButton("No", null)
-                .show();
-    }
-=======
 
     private void showBranches() {
         BranchesFragment fragment = new BranchesFragment();
         FragmentManager manager = getSupportFragmentManager();
         manager.beginTransaction().replace(R.id.content_frame,fragment).commit();
     }
->>>>>>> 1b311c36ef3fb5a742254e01f24118f8be4731a1
+
 }
