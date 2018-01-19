@@ -77,7 +77,7 @@ public class AboutUsFragment extends Fragment implements View.OnClickListener {
     private void phoneApp()
     {
         Intent intent = new Intent(Intent.ACTION_DIAL);
-        intent.setData(Uri.parse("tel:026249770"));
+        intent.setData(Uri.parse("tel:026253996"));
         Intent chooser = Intent.createChooser(intent,"Call");
         startActivity(chooser);
     }
@@ -102,11 +102,13 @@ private void websiteApp()
 private void mapApp()
 {
     Intent intent = new Intent(Intent.ACTION_VIEW);
-    //intent.setData(Uri.parse("geo:31.782113, 35.219251"));
-    intent.setData(Uri.parse("http://maps.google.com/maps?daddr=31.782113,35.219251"));
-    //intent.setData(Uri.parse("google.navigation:q=Ben Yehuda 1+Jerusalem"));
+    String address = "1 Ben Yehuda Jerusalem Israel";
+    Uri location = Uri.parse("geo:0,0?q="+address.replace(" ","+").replace("\0","+"));
+    intent.setData(location);
     Intent chooser = Intent.createChooser(intent,"Launch Maps");
     startActivity(chooser);
+
+
 }
 }
 

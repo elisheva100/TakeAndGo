@@ -1,9 +1,12 @@
 package com.example.owner.takeandgouser.controller;
 
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.widget.TextView;
 import android.support.design.widget.NavigationView;
@@ -30,11 +33,14 @@ public class MenuActivity extends AppCompatActivity
         setSupportActionBar(toolbar);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setImageResource(R.mipmap.ic_exit);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                /*Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();*/
+                exit_dialog();
+
             }
         });
 
@@ -55,8 +61,10 @@ public class MenuActivity extends AppCompatActivity
             drawer.closeDrawer(GravityCompat.START);
         } else {
             super.onBackPressed();
+
         }
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -89,6 +97,7 @@ public class MenuActivity extends AppCompatActivity
         if (id == R.id.nav_camera) {
             aboutCompanyFragment();
         } else if (id == R.id.nav_gallery) {
+            availableCarsFragment();
 
         } else if (id == R.id.nav_slideshow) {
 
@@ -137,4 +146,34 @@ public class MenuActivity extends AppCompatActivity
         	        FragmentManager manager = getSupportFragmentManager();
         	        manager.beginTransaction().replace(R.id.content_frame,fragment).commit();
             }
+    private void availableCarsFragment() {
+        AvailableCarsFragment fragment = new AvailableCarsFragment();
+        FragmentManager manager = getSupportFragmentManager();
+        manager.beginTransaction().replace(R.id.content_frame,fragment).commit();
+    }
+    private void exitApp()
+    {
+        this.finish();
+        Intent intent = new Intent(Intent.ACTION_MAIN);
+        intent.addCategory(Intent.CATEGORY_HOME);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+    }
+    private void exit_dialog()
+    {
+
+        new AlertDialog.Builder(this)
+                .setIcon(android.R.drawable.ic_menu_close_clear_cancel)
+                .setTitle("Closing App")
+                .setMessage("Are you sure you want to close this app?")
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        exitApp();
+                    }
+
+                })
+                .setNegativeButton("No", null)
+                .show();
+    }
 }

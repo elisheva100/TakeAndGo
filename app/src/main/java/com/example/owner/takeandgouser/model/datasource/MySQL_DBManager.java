@@ -111,8 +111,8 @@ public class MySQL_DBManager implements DB_manager {
         List<Car> result = new ArrayList<Car>();
 
         try {
-            String str = PHPtools.GET(WEB_URL + "/get_available_cars.php");
-            JSONArray array = new JSONObject(str).getJSONArray("Available cars");
+            String str = PHPtools.GET(WEB_URL + "/get_available_cars.php").trim();
+            JSONArray array = new JSONObject(str).getJSONArray("availables");
 
             for (int i = 0; i < array.length(); i++) {
                 JSONObject jsonObject = array.getJSONObject(i);
