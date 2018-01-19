@@ -9,6 +9,7 @@ import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -33,9 +34,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     // private LinearLayout activityMain;
     private EditText nameEditText;
     private EditText idEditText;
-    private Button saveButton;
-    private Button loadButton;
-    private Button clearButton;
+    //private Button saveButton;
+    //private Button loadButton;
+    //private Button clearButton;
+    private CheckBox loadCheckBox;
+    private CheckBox clearCheckBox;
     private Button loginButton;
     private TextView AskUserView;
     private TextView goToRegisterView;
@@ -51,16 +54,20 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         //activityMain = (LinearLayout)findViewById( R.id.activity_main );
         nameEditText = (EditText) findViewById(R.id.nameEditText);
         idEditText = (EditText) findViewById(R.id.idEditText);
-        saveButton = (Button) findViewById(R.id.saveButton);
-        loadButton = (Button) findViewById(R.id.loadButton);
-        clearButton = (Button) findViewById(R.id.clearButton);
+        //saveButton = (Button) findViewById(R.id.saveButton);
+        //loadButton = (Button) findViewById(R.id.loadButton);
+        //clearButton = (Button) findViewById(R.id.clearButton);
         loginButton = (Button) findViewById(R.id.loginButton);
         AskUserView = (TextView) findViewById(R.id.AskUserView);
         goToRegisterView = (TextView) findViewById(R.id.goToRegisterView);
+        loadCheckBox = (CheckBox)findViewById( R.id.loadCheckBox );
+        clearCheckBox = (CheckBox)findViewById( R.id.clearCheckBox );
 
-        saveButton.setOnClickListener(this);
-        loadButton.setOnClickListener(this);
-        clearButton.setOnClickListener(this);
+        //saveButton.setOnClickListener(this);
+        //loadButton.setOnClickListener(this);
+        //clearButton.setOnClickListener(this);
+       clearCheckBox.setOnClickListener(this);
+        loadCheckBox.setOnClickListener(this);
         loginButton.setOnClickListener(this);
         goToRegisterView.setOnClickListener(this);
     }
@@ -73,15 +80,16 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
      */
     @Override
     public void onClick(View v) {
-        if (v == saveButton) {
-            saveSharedPreferences();
+        //if (v == saveButton) {
+         //   saveSharedPreferences();
             //isTextChanged = true;
-        } else if (v == loadButton) {
-            loadSharedPreferences();
-            //isTextChanged = true;
-        } else if (v == clearButton) {
+        //} else
+        if (v == clearCheckBox) {
+            loadCheckBox.setChecked(false);
             clearSharedPreferences();
-            //isTextChanged = true;
+        } else if (v == loadCheckBox) {
+            clearCheckBox.setChecked(false);
+            loadSharedPreferences();
         } else if (v == loginButton) {
             Login();
         } else if (v == goToRegisterView) {
@@ -96,6 +104,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         editor.commit();
         nameEditText.setText("");
         idEditText.setText("");
+        client_id = idEditText.getText().toString();
         Toast.makeText(this, "clear Preferences", Toast.LENGTH_SHORT).show();
     }
 
@@ -117,7 +126,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         try {
             SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
             SharedPreferences.Editor editor = sharedPreferences.edit();
-
+           // if (sharedPreferences.contains("ID"))
+             //   loadSharedPreferences();
+           // else {
             String name = nameEditText.getText().toString();
             String id = idEditText.getText().toString();
 
@@ -126,8 +137,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             editor.commit();
 
             client_id = id;
-
             Toast.makeText(this, "save name and id Preferences", Toast.LENGTH_SHORT).show();
+           // }
         } catch (Exception ex) {
             Toast.makeText(this, "failed to save Preferences", Toast.LENGTH_SHORT).show();
         }
@@ -140,6 +151,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
 
     private void Login() {
+        saveSharedPreferences();
         new MyAsyncTask().execute(client_id, "");
     }
 
@@ -152,10 +164,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     private class MyAsyncTask extends AsyncTask<String, Void, Boolean> {
 
-        protected void fef()
+       /* protected void fef()
         {
            String id = idEditText.getText().toString();
-        }
+        }*/
         @Override
         protected void onPostExecute(Boolean isExist) {
             super.onPostExecute(isExist);
@@ -178,4 +190,5 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
 
 }
+
 

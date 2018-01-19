@@ -100,7 +100,7 @@ public class MenuActivity extends AppCompatActivity
             availableCarsFragment();
 
         } else if (id == R.id.nav_slideshow) {
-
+            showBranches();
         } else if (id == R.id.nav_manage) {
 
         } else if (id == R.id.nav_share) {
@@ -141,11 +141,12 @@ public class MenuActivity extends AppCompatActivity
 //            // Handle clicks for fab
 //        }
 //    }
-    	    private void aboutCompanyFragment() {
+    private void aboutCompanyFragment() {
         	        AboutUsFragment fragment = new AboutUsFragment();
         	        FragmentManager manager = getSupportFragmentManager();
         	        manager.beginTransaction().replace(R.id.content_frame,fragment).commit();
             }
+<<<<<<< HEAD
     private void availableCarsFragment() {
         AvailableCarsFragment fragment = new AvailableCarsFragment();
         FragmentManager manager = getSupportFragmentManager();
@@ -176,4 +177,12 @@ public class MenuActivity extends AppCompatActivity
                 .setNegativeButton("No", null)
                 .show();
     }
+=======
+
+    private void showBranches() {
+        BranchesFragment fragment = new BranchesFragment();
+        FragmentManager manager = getSupportFragmentManager();
+        manager.beginTransaction().replace(R.id.content_frame,fragment).commit();
+    }
+>>>>>>> 1b311c36ef3fb5a742254e01f24118f8be4731a1
 }
