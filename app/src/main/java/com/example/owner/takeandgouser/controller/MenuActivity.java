@@ -146,7 +146,7 @@ public class MenuActivity extends AppCompatActivity
         	        FragmentManager manager = getSupportFragmentManager();
         	        manager.beginTransaction().replace(R.id.content_frame,fragment).commit();
             }
-<<<<<<< HEAD
+
     private void availableCarsFragment() {
         AvailableCarsFragment fragment = new AvailableCarsFragment();
         FragmentManager manager = getSupportFragmentManager();
@@ -177,12 +177,12 @@ public class MenuActivity extends AppCompatActivity
                 .setNegativeButton("No", null)
                 .show();
     }
-=======
+
 
     private void showBranches() {
         BranchesFragment fragment = new BranchesFragment();
         FragmentManager manager = getSupportFragmentManager();
         manager.beginTransaction().replace(R.id.content_frame,fragment).commit();
     }
->>>>>>> 1b311c36ef3fb5a742254e01f24118f8be4731a1
+
 }
