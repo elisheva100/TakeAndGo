@@ -100,7 +100,7 @@ public class MenuActivity extends AppCompatActivity
             availableCarsFragment();
 
         } else if (id == R.id.nav_slideshow) {
-            showBranches();
+            showBranchesFragment();
         } else if (id == R.id.nav_manage) {
 
         } else if (id == R.id.nav_share) {
@@ -144,13 +144,19 @@ public class MenuActivity extends AppCompatActivity
     private void aboutCompanyFragment() {
         	        AboutUsFragment fragment = new AboutUsFragment();
         	        FragmentManager manager = getSupportFragmentManager();
-        	        manager.beginTransaction().replace(R.id.content_frame,fragment).commit();
+        	        manager.beginTransaction().replace(R.id.content_frame,fragment).addToBackStack("AboutUsFragment").commit();
             }
-<<<<<<< HEAD
+
     private void availableCarsFragment() {
         AvailableCarsFragment fragment = new AvailableCarsFragment();
         FragmentManager manager = getSupportFragmentManager();
         manager.beginTransaction().replace(R.id.content_frame,fragment).commit();
+    }
+
+    private void showBranchesFragment() {
+        BranchesFragment fragment = new BranchesFragment();
+        FragmentManager manager = getSupportFragmentManager();
+        manager.beginTransaction().replace(R.id.content_frame,fragment).addToBackStack("BranchesFragment").commit();
     }
     private void exitApp()
     {
@@ -177,12 +183,7 @@ public class MenuActivity extends AppCompatActivity
                 .setNegativeButton("No", null)
                 .show();
     }
-=======
 
-    private void showBranches() {
-        BranchesFragment fragment = new BranchesFragment();
-        FragmentManager manager = getSupportFragmentManager();
-        manager.beginTransaction().replace(R.id.content_frame,fragment).commit();
-    }
->>>>>>> 1b311c36ef3fb5a742254e01f24118f8be4731a1
+
+
 }

@@ -38,7 +38,9 @@ public class BranchesFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_branches, container, false);
         branchesExpandableList =  ((ExpandableListView) rootView.findViewById(R.id.branchesExpandableList));
         try{ new MyAsyncTask().execute();}
-        catch(Exception e) {/*Toast.makeText( getBaseContext(),e.getMessage(),Toast.LENGTH_LONG).show();*/}
+        catch(Exception e) {
+            Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_LONG).show();
+        }
         return rootView;
     }
 
