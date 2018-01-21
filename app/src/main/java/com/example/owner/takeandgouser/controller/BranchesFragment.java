@@ -5,7 +5,9 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Debug;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,8 +37,10 @@ public class BranchesFragment extends Fragment {
         //long pID = getArguments().getLong("product id");
         // final ArrayList<Branch> Branches = (ArrayList<Branch>) getArguments().getSerializable("ArrayList<Branch>");
         //((ListView) rootView.findViewById(R.id.shopListView)).setAdapter(new ArrayAdapter<Shop>(getActivity(), R.layout.shop_list_row, Shops));
-       try { new MyAsyncTask().execute();}
-       catch (Exception e) {}
+       //try { new MyAsyncTask().execute();}
+      // catch (Exception e) { }
+        new MyAsyncTask().execute();
+        try{
         ((ExpandableListView) rootView.findViewById(R.id.branchesExpandableList)).setAdapter(new BaseExpandableListAdapter() {
                 @Override
                 public int getGroupCount() {
@@ -87,47 +91,8 @@ public class BranchesFragment extends Fragment {
                     final Branch branch = Branches.get(groupPosition);
                     TextView parking = (TextView) branchesListItem.findViewById(R.id.lblListParking);
                     TextView branchNumber = (TextView) branchesListItem.findViewById(R.id.lblListBranchNumber);
-                    //TextView address = (TextView) shopsListItem.findViewById(R.id.lblListAddress);
-                    //TextView telephone = (TextView) shopsListItem.findViewById(R.id.lblLisTelephoneNumber);
-                    //Button details_button = (Button) branchesListItem.findViewById(R.id.ShopDetailsButton);
-                    parking.setText(branch.getParking());
-                    branchNumber.setText(branch.getBranchNumber());
-//               email.setOnClickListener(new View.OnClickListener() {
-//                    @Override
-//                    public void onClick(View view) {
-//                        //TODO fix the email.setOnClickListener
-//                        Intent implicitIntent = new Intent(Intent.ACTION_SENDTO);
-//                        implicitIntent.setData(Uri.parse("mailto:"));
-//                        implicitIntent.setType("*/*");
-//                        implicitIntent.putExtra(Intent.EXTRA_EMAIL, /*shop.getEmail()*/ "haimnafcha@gmail.com");
-//                        implicitIntent.putExtra(Intent.EXTRA_SUBJECT, "From ShopApp");
-//                        if (implicitIntent.resolveActivity(getActivity().getPackageManager()) != null) {
-//                            startActivity(implicitIntent);
-//                        }
-//                    }
-//                });
-//                address.setText(shop.getShopAddress());
-//                telephone.setText(shop.getTelephoneNumber());
-//                telephone.setOnClickListener(new View.OnClickListener() {
-//                    @Override
-//                    public void onClick(View view) {
-//                        Intent intent = new Intent(Intent.ACTION_DIAL);
-//                        intent.setData(Uri.parse("tel:" + shop.getTelephoneNumber()));
-//                        if (intent.resolveActivity(getActivity().getPackageManager()) != null) {
-//                            startActivity(intent);
-//                        }
-//                    }
-//                });
-//                details_button.setOnClickListener(new View.OnClickListener() {
-//                    @Override
-//                    public void onClick(View v) {
-//                        Intent implicitIntent = new Intent(Intent.ACTION_VIEW);
-//                        implicitIntent.setData(Uri.parse("geo:0,0?q=" + branch.getShopAddress().replace(" ","+").replace("\n","+")));
-//                        if (implicitIntent.resolveActivity(getActivity().getPackageManager()) != null) {
-//                            startActivity(implicitIntent);
-//                        }
-//                    }
-//                });
+                    parking.setText(String.valueOf(branch.getParking()));
+                    branchNumber.setText(String.valueOf(branch.getBranchNumber()));
                     return branchesListItem;
                 }
 
@@ -135,7 +100,11 @@ public class BranchesFragment extends Fragment {
                 public boolean isChildSelectable(int groupPosition, int childPosition) {
                     return true;
                 }
-            });
+            });}
+        catch ( Exception e){
+            String ff = String.valueOf(e);
+            Log.d("myApp", ff);
+        }
         return rootView;
     }
 
