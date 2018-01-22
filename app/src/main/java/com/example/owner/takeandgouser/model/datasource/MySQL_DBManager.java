@@ -127,11 +127,11 @@ public class MySQL_DBManager implements DB_manager {
         return null;
     }
 //TODO: check the php file' right now it's not working.
-    public List<Car> getAvailableCarsForBranch(){
+    public List<Car> getAvailableCarsForBranch(Branch b){
         List<Car> result = new ArrayList<Car>();
 
         try {
-            String str = PHPtools.GET(WEB_URL + "/available_cars_by_branch.php");
+            String str = PHPtools.GET(WEB_URL + "/get_available_cars.php").trim();
             JSONArray array = new JSONObject(str).getJSONArray("Available cars");
 
             for (int i = 0; i < array.length(); i++) {
@@ -139,6 +139,11 @@ public class MySQL_DBManager implements DB_manager {
                 ContentValues contentValues = PHPtools.JsonToContentValues(jsonObject);
                 Car car = AgencyConsts.ContentValuesToCar(contentValues);
                 result.add(car);
+
+            }
+            for (Car car : result){
+                if(car.getBranchNumber()!= b.getBranchNumber() )
+                    result.remove(car);
             }
             return result;
         } catch (Exception e) {

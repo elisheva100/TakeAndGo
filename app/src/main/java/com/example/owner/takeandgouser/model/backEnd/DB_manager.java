@@ -28,7 +28,7 @@ public interface DB_manager {
     boolean updateCar(long num, ContentValues values) throws Exception;*/
     //boolean isExistCar(long n);
     List<Car> getAvailableCars();
-    List<Car> getAvailableCarsForBranch();
+    List<Car> getAvailableCarsForBranch(Branch b);
     //endregion
     //region branches
     List<Branch> getBranches();
