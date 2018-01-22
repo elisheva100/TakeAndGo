@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.Button;
 import android.widget.ExpandableListView;
@@ -115,13 +116,25 @@ public class BranchesFragment extends Fragment {
         @Override
         protected Void doInBackground(Branch... params) {
             try {
-                carsByBranch = DBManagerFactory.getManager().getAvailableCarsForBranch();
+                carsByBranch = DBManagerFactory.getManager().getAvailableCarsForBranch(params[0]);
             } catch (Exception e) {
                 carsByBranch  = null;
             }
             return null;
         }
     }
+
+    Long[] getAllCarsNumbers(List<Car> cars)
+    {
+        Long[] num = new Long[]{};
+        List<Long> lst = new ArrayList<>();
+        for(Car car : cars)
+            lst.add(car.getNumber());
+        return lst.toArray(num);
+
+    }
+
+
 
     class MyExpandableListAdapter extends BaseExpandableListAdapter implements Filterable, View.OnClickListener {
 
@@ -182,6 +195,13 @@ public class BranchesFragment extends Fragment {
             TextView branchNumber = (TextView) branchesListItem.findViewById(R.id.lblListBranchNumber);
             showCars =  (Button) branchesListItem.findViewById(R.id.showCarsButton);
             carsListByBranch = (ListView) branchesListItem.findViewById(R.id.carsListView);
+            try { new carByBranchAsyncTask().execute(branch, null);}
+            catch (Exception e) {
+                Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_LONG).show();
+            }
+            Long[] nums = getAllCarsNumbers(carsByBranch);
+            ArrayAdapter ad = new ArrayAdapter<Long>(getActivity() ,android.R.layout.simple_list_item_1, nums);
+            carsListByBranch.setAdapter(ad);
             carsListByBranch.setTag(Branches.get(groupPosition).getAdress());
             parking.setText("parking: " + String.valueOf(branch.getParking()));
             branchNumber.setText("branch number: " + String.valueOf(branch.getBranchNumber()));
