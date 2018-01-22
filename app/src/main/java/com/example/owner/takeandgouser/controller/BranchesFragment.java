@@ -2,14 +2,13 @@ package com.example.owner.takeandgouser.controller;
 
 import android.content.Context;
 import android.content.Intent;
+import android.location.Address;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Debug;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
-import android.support.v4.widget.SearchViewCompat;
-//import android.support.v7.widget.SearchView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,13 +18,17 @@ import android.widget.Button;
 import android.widget.ExpandableListView;
 import android.widget.Filter;
 import android.widget.Filterable;
+import android.widget.ListView;
 import android.widget.SearchView;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.owner.takeandgouser.R;
 import com.example.owner.takeandgouser.model.backEnd.DBManagerFactory;
+import com.example.owner.takeandgouser.model.entities.Adress;
 import com.example.owner.takeandgouser.model.entities.Branch;
+import com.example.owner.takeandgouser.model.entities.Car;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -37,20 +40,34 @@ import java.util.ListIterator;
 public class BranchesFragment extends Fragment {
 
     private ExpandableListView branchesExpandableList;
+    private ListView carsListByBranch;
     private SearchView searchView;
     final MyExpandableListAdapter myBaseExpandableListAdapter = new MyExpandableListAdapter();
-    private static  List<Branch> Branches = new ArrayList<>() ;
-    private static  List<Branch> filterList = new ArrayList<>() ;
+    Button showCars;
+
+    private static List<Branch> filterList = new ArrayList<>();
+    private static List<Branch> Branches = new ArrayList<>();
+    private static List<Car> carsByBranch = new ArrayList<>();
+
+    private void openMap(Adress address) {
+        Intent intent = new Intent(Intent.ACTION_VIEW);
+        Uri location = Uri.parse("geo:0,0?q=" + address.toString());
+        intent.setData(location);
+        startActivity(intent);
+    }
+
 
     public BranchesFragment() { // Required empty public constructor
     }
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_branches, container, false);
-        branchesExpandableList =  ((ExpandableListView) rootView.findViewById(R.id.branchesExpandableList));
+        branchesExpandableList = ((ExpandableListView) rootView.findViewById(R.id.branchesExpandableList));
         searchView = (SearchView) rootView.findViewById(R.id.mySearchView);
-        try{ new MyAsyncTask().execute();}
-        catch(Exception e) { Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_LONG).show();}
+        try { new MyAsyncTask().execute();}
+        catch (Exception e) {
+            Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_LONG).show();
+        }
         return rootView;
     }
 
@@ -88,7 +105,26 @@ public class BranchesFragment extends Fragment {
         }
     }
 
-    class MyExpandableListAdapter extends BaseExpandableListAdapter implements Filterable {
+
+    private class carByBranchAsyncTask extends AsyncTask<Branch, Void, Void>
+    {
+        @Override
+        protected void onPostExecute(Void listFromBackground) {
+        }
+
+        @Override
+        protected Void doInBackground(Branch... params) {
+            try {
+                carsByBranch = DBManagerFactory.getManager().getAvailableCarsForBranch();
+            } catch (Exception e) {
+                carsByBranch  = null;
+            }
+            return null;
+        }
+    }
+
+    class MyExpandableListAdapter extends BaseExpandableListAdapter implements Filterable, View.OnClickListener {
+
         @Override
         public int getGroupCount() {
             return Branches.size();
@@ -128,8 +164,14 @@ public class BranchesFragment extends Fragment {
         public View getGroupView(int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
             View header = getActivity().getLayoutInflater().inflate(R.layout.branch_list_group, parent, false);
             TextView title = (TextView) header.findViewById(R.id.lblBranchesListHeader);
-            title.setText(Branches.get(groupPosition).getAdress().toString());
+            title.setText("Address: " + Branches.get(groupPosition).getAdress().toString());
+            ImageButton mapView = (ImageButton) header.findViewById(R.id.buttonMap);
+            mapView.setTag(Branches.get(groupPosition).getAdress());
+            mapView.setFocusable(false);
+            mapView.setOnClickListener(this);
+
             return header;
+
         }
 
         @Override
@@ -138,8 +180,13 @@ public class BranchesFragment extends Fragment {
             final Branch branch = Branches.get(groupPosition);
             TextView parking = (TextView) branchesListItem.findViewById(R.id.lblListParking);
             TextView branchNumber = (TextView) branchesListItem.findViewById(R.id.lblListBranchNumber);
-            parking.setText(String.valueOf(branch.getParking()));
-            branchNumber.setText(String.valueOf(branch.getBranchNumber()));
+            showCars =  (Button) branchesListItem.findViewById(R.id.showCarsButton);
+            carsListByBranch = (ListView) branchesListItem.findViewById(R.id.carsListView);
+            carsListByBranch.setTag(Branches.get(groupPosition).getAdress());
+            parking.setText("parking: " + String.valueOf(branch.getParking()));
+            branchNumber.setText("branch number: " + String.valueOf(branch.getBranchNumber()));
+
+            showCars.setOnClickListener(this);
             return branchesListItem;
         }
 
@@ -148,35 +195,35 @@ public class BranchesFragment extends Fragment {
             return true;
         }
 
-
         @Override
         public Filter getFilter() {
-            return  new Filter() {
+            return new Filter() {
                 @Override
                 protected FilterResults performFiltering(CharSequence constraint) {
 
-                   FilterResults results = new FilterResults();
+                    FilterResults results = new FilterResults();
                     // We implement here the filter logic
-                   if (constraint == null || constraint.length() == 0) {
+                    if (constraint == null || constraint.length() == 0) {
                         // No filter implemented we return all the list
                         results.values = filterList;
                         results.count = filterList.size();
-                   }
-                    else {
+                    } else {
                         // We perform filtering operation
                         List<Branch> tempList = new ArrayList<Branch>();
-                       for (Branch p : filterList) {;
-                           if (p.getAdress().toString().toUpperCase().startsWith(constraint.toString().toUpperCase()))
-                              tempList.add(p);
+                        for (Branch p : filterList) {
+                            ;
+                            if (p.getAdress().toString().toUpperCase().startsWith(constraint.toString().toUpperCase()))
+                                tempList.add(p);
                         }
 
-                       results.values = tempList;
+                        results.values = tempList;
                         results.count = tempList.size();
 
                     }
-                   return results;
-                   // return null;
+                    return results;
+                    // return null;
                 }
+
                 @Override
                 protected void publishResults(CharSequence constraint, FilterResults results) {
 
@@ -184,14 +231,30 @@ public class BranchesFragment extends Fragment {
                     if (results.count == 0) {
                         Branches = new ArrayList<>();
                         notifyDataSetInvalidated();
-                    }
-                    else {
+                    } else {
                         Branches = (List<Branch>) results.values;
                         notifyDataSetChanged();
                     }
                 }
             };
         }
+
+        @Override
+        public void onClick(View v) {
+            if (v.getTag().getClass().equals(Adress.class)) {
+
+                Adress address = (Adress) v.getTag();
+
+                openMap(address);
+            }
+            else if (v == showCars)
+            {
+                v.setVisibility(View.INVISIBLE);
+            }
+        }
     }
 }
+
+
+
 

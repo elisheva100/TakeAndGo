@@ -199,10 +199,10 @@ public int closeOrder(ContentValues order)throws Exception{
         int numResult = Integer.parseInt(result);
         if (result != null)
             SetUpdate();
-        printLog("addOrder:\n" + result);
+        printLog("closeOrder:\n" + result);
         return numResult;
     } catch (IOException e) {
-        printLog("addOrder Exception:\n" + e);
+        printLog("closeOrder Exception:\n" + e);
         return -1;
     }
 
