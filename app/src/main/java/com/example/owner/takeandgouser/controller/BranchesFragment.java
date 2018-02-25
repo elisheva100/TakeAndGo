@@ -116,6 +116,10 @@ public class BranchesFragment extends Fragment {
         protected void onPostExecute(List<Car> listFromBackground) {
             carsByBranch = null;
             carsByBranch = listFromBackground;
+            Long[] nums = getAllCarsNumbers(carsByBranch);
+            carsAdaptor = new ArrayAdapter<Long>(getActivity(), android.R.layout.simple_list_item_1, nums);
+            carsListByBranch.setAdapter(carsAdaptor);
+            setListViewHeightBasedOnChildren(carsListByBranch);
         }
 
         @Override
@@ -135,7 +139,6 @@ public class BranchesFragment extends Fragment {
         for(Car car : cars)
             lst.add(car.getNumber());
         return lst.toArray(num);
-
     }
 
 
@@ -194,24 +197,27 @@ public class BranchesFragment extends Fragment {
         @Override
         public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
             View branchesListItem = getActivity().getLayoutInflater().inflate(R.layout.branch_list_item, parent, false);
-            final Branch branch = Branches.get(groupPosition);
+            Branch branch = Branches.get(groupPosition);
             TextView parking = (TextView) branchesListItem.findViewById(R.id.lblListParking);
             TextView branchNumber = (TextView) branchesListItem.findViewById(R.id.lblListBranchNumber);
+            parking.setText("parking: " + String.valueOf(branch.getParking()));
+            branchNumber.setText("branch number: " + String.valueOf(branch.getBranchNumber()));
+
             //showCars =  (Button) branchesListItem.findViewById(R.id.showCarsButton);
             carsListByBranch = (ListView) branchesListItem.findViewById(R.id.carsListView);
+            //carsByBranch = null;
             try {
                 new carByBranchAsyncTask().execute(branch, null);
             } catch (Exception e) {
                 Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_LONG).show();
             }
-            Long[] nums = getAllCarsNumbers(carsByBranch);
+            /*Long[] nums = getAllCarsNumbers(carsByBranch);
             carsAdaptor = new ArrayAdapter<Long>(getActivity(), android.R.layout.simple_list_item_1, nums);
             carsListByBranch.setAdapter(carsAdaptor);
-            setListViewHeightBasedOnChildren(carsListByBranch);
+            setListViewHeightBasedOnChildren(carsListByBranch);*/
 
             // carsListByBranch.setTag(Branches.get(groupPosition).getParking());
-            parking.setText("parking: " + String.valueOf(branch.getParking()));
-            branchNumber.setText("branch number: " + String.valueOf(branch.getBranchNumber()));
+
 
             //showCars.setOnClickListener(this);
             return branchesListItem;
@@ -298,7 +304,7 @@ public class BranchesFragment extends Fragment {
         }
 
         ViewGroup.LayoutParams params = carsListByBranch.getLayoutParams();
-        params.height = totalHeight + (carsListByBranch.getDividerHeight() * (listAdapter.getCount() - 1));
+        params.height = totalHeight;// + (carsListByBranch.getDividerHeight() * (listAdapter.getCount() - 1));
         carsListByBranch.setLayoutParams(params);
         carsListByBranch.requestLayout();
     }
