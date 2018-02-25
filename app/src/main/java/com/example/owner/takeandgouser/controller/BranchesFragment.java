@@ -19,6 +19,7 @@ import android.widget.Button;
 import android.widget.ExpandableListView;
 import android.widget.Filter;
 import android.widget.Filterable;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.ImageButton;
@@ -45,6 +46,7 @@ public class BranchesFragment extends Fragment {
     private SearchView searchView;
     final MyExpandableListAdapter myBaseExpandableListAdapter = new MyExpandableListAdapter();
     Button showCars;
+    ArrayAdapter<Long> carsAdaptor;
 
     private static List<Branch> filterList = new ArrayList<>();
     private static List<Branch> Branches = new ArrayList<>();
@@ -195,20 +197,23 @@ public class BranchesFragment extends Fragment {
             final Branch branch = Branches.get(groupPosition);
             TextView parking = (TextView) branchesListItem.findViewById(R.id.lblListParking);
             TextView branchNumber = (TextView) branchesListItem.findViewById(R.id.lblListBranchNumber);
-            showCars =  (Button) branchesListItem.findViewById(R.id.showCarsButton);
+            //showCars =  (Button) branchesListItem.findViewById(R.id.showCarsButton);
             carsListByBranch = (ListView) branchesListItem.findViewById(R.id.carsListView);
-            try { new carByBranchAsyncTask().execute(branch, null);}
-            catch (Exception e) {
+            try {
+                new carByBranchAsyncTask().execute(branch, null);
+            } catch (Exception e) {
                 Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_LONG).show();
             }
             Long[] nums = getAllCarsNumbers(carsByBranch);
-            ArrayAdapter ad = new ArrayAdapter<Long>(getActivity(),android.R.layout.simple_list_item_1, nums);
-            carsListByBranch.setAdapter(ad);
-            carsListByBranch.setTag(Branches.get(groupPosition).getParking());
+            carsAdaptor = new ArrayAdapter<Long>(getActivity(), android.R.layout.simple_list_item_1, nums);
+            carsListByBranch.setAdapter(carsAdaptor);
+            setListViewHeightBasedOnChildren(carsListByBranch);
+
+            // carsListByBranch.setTag(Branches.get(groupPosition).getParking());
             parking.setText("parking: " + String.valueOf(branch.getParking()));
             branchNumber.setText("branch number: " + String.valueOf(branch.getBranchNumber()));
 
-            showCars.setOnClickListener(this);
+            //showCars.setOnClickListener(this);
             return branchesListItem;
         }
 
@@ -269,11 +274,33 @@ public class BranchesFragment extends Fragment {
 
                 openMap(address);
             }
-            else if (v.getTag().getClass().equals(Integer.class))
-            {
-                v.setVisibility(View.INVISIBLE);
-            }
+            // else if (v.getTag().getClass().equals(Integer.class))
+            //  {
+            //     v.setVisibility(View.INVISIBLE);
+            // }
         }
+
+    }
+
+
+    public static void setListViewHeightBasedOnChildren(ListView carsListByBranch) {
+        ListAdapter listAdapter = carsListByBranch.getAdapter();
+        if (listAdapter == null) {
+            // pre-condition
+            return;
+        }
+
+        int totalHeight = 10;
+        for (int i = 0; i < listAdapter.getCount(); i++) {
+            View listItem = listAdapter.getView(i, null, carsListByBranch);
+            listItem.measure(0, 120);
+            totalHeight += 120;
+        }
+
+        ViewGroup.LayoutParams params = carsListByBranch.getLayoutParams();
+        params.height = totalHeight + (carsListByBranch.getDividerHeight() * (listAdapter.getCount() - 1));
+        carsListByBranch.setLayoutParams(params);
+        carsListByBranch.requestLayout();
     }
 }
 

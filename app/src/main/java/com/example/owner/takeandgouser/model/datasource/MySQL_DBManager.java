@@ -155,6 +155,17 @@ public class MySQL_DBManager implements DB_manager {
         return null;
 
     }
+
+
+    /*public List<Car> getAvailableCarsForBranch(Branch b){
+        List<Car> availableCars = getAvailableCars() ;
+        List<Car> result = new ArrayList<Car>();
+        for (Car car : availableCars) {
+                if (car.getBranchNumber() == b.getBranchNumber())
+                    result.add(car);
+            }
+        return result;
+    }*/
     //endregion
 
     //region branch
@@ -236,6 +247,6 @@ public int closeOrder(ContentValues order)throws Exception{
         return null;
 
     }
-//end region
+    //end region
 }
 
