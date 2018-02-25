@@ -72,10 +72,12 @@ public class BranchesFragment extends Fragment {
         return rootView;
     }
 
-    private class MyAsyncTask extends AsyncTask<Branch, Void, Void> {
+    private class MyAsyncTask extends AsyncTask<Branch, Void, List<Branch>> {
 
         @Override
-        protected void onPostExecute(Void listFromBackground) {
+        protected void onPostExecute(List<Branch> listFromBackground) {
+            Branches = null;
+            Branches = listFromBackground;
             filterList.clear();
             filterList.addAll(Branches);
             branchesExpandableList.setAdapter(myBaseExpandableListAdapter);
@@ -96,31 +98,31 @@ public class BranchesFragment extends Fragment {
         }
 
         @Override
-        protected Void doInBackground(Branch... params) {
+        protected List<Branch> doInBackground(Branch... params) {
             try {
-                Branches = DBManagerFactory.getManager().getBranches();
+                return DBManagerFactory.getManager().getBranches();
             } catch (Exception e) {
-                Branches = null;
+                return  null;
             }
-            return null;
         }
     }
 
 
-    private class carByBranchAsyncTask extends AsyncTask<Branch, Void, Void>
+    private class carByBranchAsyncTask extends AsyncTask<Branch, Void, List<Car>>
     {
         @Override
-        protected void onPostExecute(Void listFromBackground) {
+        protected void onPostExecute(List<Car> listFromBackground) {
+            carsByBranch = null;
+            carsByBranch = listFromBackground;
         }
 
         @Override
-        protected Void doInBackground(Branch... params) {
+        protected List<Car> doInBackground(Branch... params) {
             try {
-                carsByBranch = DBManagerFactory.getManager().getAvailableCarsForBranch(params[0]);
+                return DBManagerFactory.getManager().getAvailableCarsForBranch(params[0]);
             } catch (Exception e) {
-                carsByBranch  = null;
+                return null;
             }
-            return null;
         }
     }
 
@@ -200,7 +202,7 @@ public class BranchesFragment extends Fragment {
                 Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_LONG).show();
             }
             Long[] nums = getAllCarsNumbers(carsByBranch);
-            ArrayAdapter ad = new ArrayAdapter<Long>(getActivity() ,android.R.layout.simple_list_item_1, nums);
+            ArrayAdapter ad = new ArrayAdapter<Long>(getActivity(),android.R.layout.simple_list_item_1, nums);
             carsListByBranch.setAdapter(ad);
             carsListByBranch.setTag(Branches.get(groupPosition).getAdress());
             parking.setText("parking: " + String.valueOf(branch.getParking()));
