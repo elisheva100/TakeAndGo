@@ -84,10 +84,10 @@ public class AboutUsFragment extends Fragment implements View.OnClickListener {
     private void mailApp()
     {
         Intent intent = new Intent(Intent.ACTION_SENDTO);
-        intent.setData(Uri.parse("mailto:"));
+        intent.setDataAndType(Uri.parse("mailto:") ,"text/plain");
         String to = "service@takengo.com";
         intent.putExtra(Intent.EXTRA_EMAIL,to);
-        intent.setType("text/plain");
+        //intent.setType("text/plain");
         Intent chooser = Intent.createChooser(intent,"Send Email");
         startActivity(chooser);
 

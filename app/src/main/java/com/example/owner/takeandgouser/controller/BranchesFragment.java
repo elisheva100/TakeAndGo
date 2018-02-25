@@ -202,7 +202,7 @@ public class BranchesFragment extends Fragment {
             Long[] nums = getAllCarsNumbers(carsByBranch);
             ArrayAdapter ad = new ArrayAdapter<Long>(getActivity() ,android.R.layout.simple_list_item_1, nums);
             carsListByBranch.setAdapter(ad);
-            carsListByBranch.setTag(Branches.get(groupPosition).getAdress());
+            carsListByBranch.setTag(Branches.get(groupPosition).getParking());
             parking.setText("parking: " + String.valueOf(branch.getParking()));
             branchNumber.setText("branch number: " + String.valueOf(branch.getBranchNumber()));
 
@@ -267,7 +267,7 @@ public class BranchesFragment extends Fragment {
 
                 openMap(address);
             }
-            else if (v == showCars)
+            else if (v.getTag().getClass().equals(Integer.class))
             {
                 v.setVisibility(View.INVISIBLE);
             }
