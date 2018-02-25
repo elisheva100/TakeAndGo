@@ -129,6 +129,8 @@ public class MySQL_DBManager implements DB_manager {
 //TODO: check the php file' right now it's not working.
     public List<Car> getAvailableCarsForBranch(Branch b){
         List<Car> result = new ArrayList<Car>();
+        List<Car> itemsToRemove = new ArrayList<Car>();
+        
 
         try {
             String str = PHPtools.GET(WEB_URL + "/get_available_cars.php").trim();
@@ -143,8 +145,9 @@ public class MySQL_DBManager implements DB_manager {
             }
             for (Car car : result){
                 if(car.getBranchNumber()!= b.getBranchNumber() )
-                    result.remove(car);
+                    itemsToRemove.add(car);
             }
+            result.removeAll(itemsToRemove);
             return result;
         } catch (Exception e) {
             e.printStackTrace();

@@ -68,7 +68,7 @@ public class AgencyConsts {
         public static final String MILEAGE_END = "mileageEnd";
         public static final String GAS_FILLED = "gasFilled";
         public static final String GAS_LITERS = "gasLiters";
-        public static final String FINAL_BILLING= "finalBilling";
+        public static final String FINAL_BILLING = "finalBilling";
         public static final String ORDER_NUMBER= "_id";
     }
     //endregion
