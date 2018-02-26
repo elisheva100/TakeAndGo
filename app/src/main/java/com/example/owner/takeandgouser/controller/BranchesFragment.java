@@ -45,7 +45,6 @@ public class BranchesFragment extends Fragment {
     private ListView carsListByBranch;
     private SearchView searchView;
     final MyExpandableListAdapter myBaseExpandableListAdapter = new MyExpandableListAdapter();
-    Button showCars;
     ArrayAdapter<Long> carsAdaptor;
 
     private static List<Branch> filterList = new ArrayList<>();
@@ -202,24 +201,12 @@ public class BranchesFragment extends Fragment {
             TextView branchNumber = (TextView) branchesListItem.findViewById(R.id.lblListBranchNumber);
             parking.setText("parking: " + String.valueOf(branch.getParking()));
             branchNumber.setText("branch number: " + String.valueOf(branch.getBranchNumber()));
-
-            //showCars =  (Button) branchesListItem.findViewById(R.id.showCarsButton);
             carsListByBranch = (ListView) branchesListItem.findViewById(R.id.carsListView);
-            //carsByBranch = null;
             try {
                 new carByBranchAsyncTask().execute(branch, null);
             } catch (Exception e) {
                 Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_LONG).show();
             }
-            /*Long[] nums = getAllCarsNumbers(carsByBranch);
-            carsAdaptor = new ArrayAdapter<Long>(getActivity(), android.R.layout.simple_list_item_1, nums);
-            carsListByBranch.setAdapter(carsAdaptor);
-            setListViewHeightBasedOnChildren(carsListByBranch);*/
-
-            // carsListByBranch.setTag(Branches.get(groupPosition).getParking());
-
-
-            //showCars.setOnClickListener(this);
             return branchesListItem;
         }
 
@@ -245,7 +232,8 @@ public class BranchesFragment extends Fragment {
                         List<Branch> tempList = new ArrayList<Branch>();
                         for (Branch p : filterList) {
                             ;
-                            if (p.getAdress().toString().toUpperCase().startsWith(constraint.toString().toUpperCase()))
+                            //if (p.getAdress().toString().toUpperCase().startsWith(constraint.toString().toUpperCase()))
+                            if (p.getAdress().getCity().toString().toUpperCase().startsWith(constraint.toString().toUpperCase()))
                                 tempList.add(p);
                         }
 
@@ -275,15 +263,9 @@ public class BranchesFragment extends Fragment {
         @Override
         public void onClick(View v) {
             if (v.getTag().getClass().equals(Adress.class)) {
-
                 Adress address = (Adress) v.getTag();
-
                 openMap(address);
             }
-            // else if (v.getTag().getClass().equals(Integer.class))
-            //  {
-            //     v.setVisibility(View.INVISIBLE);
-            // }
         }
 
     }
