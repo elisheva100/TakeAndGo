@@ -149,6 +149,8 @@
             android:text="Clear"
             android:layout_marginTop="48dp"
             android:layout_below="@+id/idEditText"
+            android:textStyle="italic"
+            android:textSize="15dp"
             android:layout_alignEnd="@+id/nameEditText"
             android:layout_marginEnd="11dp" />
 
@@ -157,6 +159,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
             android:text="Load password"
+            android:textStyle="italic"
+            android:textSize="15dp"
             android:layout_alignBaseline="@+id/clearCheckBox"
             android:layout_alignBottom="@+id/clearCheckBox"
             android:layout_alignStart="@+id/AskUserView" />

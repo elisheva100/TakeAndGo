@@ -2,6 +2,7 @@ package com.example.owner.takeandgouser.controller;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
@@ -43,6 +44,12 @@ public class MenuActivity extends AppCompatActivity
 
             }
         });
+
+
+        MyReceiver myReceiver = new MyReceiver(); //TODO check it!!
+        IntentFilter filter = new IntentFilter("CHANGE_CAR_STATUS");
+        registerReceiver(myReceiver,filter);
+        startService(new Intent(this,MyIntentService.class));
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -97,10 +104,11 @@ public class MenuActivity extends AppCompatActivity
         if (id == R.id.nav_camera) {
             aboutCompanyFragment();
         } else if (id == R.id.nav_gallery) {
-            availableCarsFragment();
-
-        } else if (id == R.id.nav_slideshow) {
+            //availableCarsFragment();
             showBranchesFragment();
+        } else if (id == R.id.nav_slideshow) {
+           // showCarsFragment();
+            availableCarsFragment();
         } else if (id == R.id.nav_manage) {
 
         } else if (id == R.id.nav_share) {
@@ -157,6 +165,12 @@ public class MenuActivity extends AppCompatActivity
         BranchesFragment fragment = new BranchesFragment();
         FragmentManager manager = getSupportFragmentManager();
         manager.beginTransaction().replace(R.id.content_frame,fragment).addToBackStack("BranchesFragment").commit();
+    }
+
+    private void showCarsFragment() {
+        CarsFragment fragment = new CarsFragment();
+        FragmentManager manager = getSupportFragmentManager();
+        manager.beginTransaction().replace(R.id.content_frame,fragment).addToBackStack("CarsFragment").commit();
     }
     private void exitApp()
     {

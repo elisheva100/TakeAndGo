@@ -4,7 +4,6 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,22 +14,31 @@ import android.widget.Filter;
 import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
-
+import android.support.v4.app.Fragment;
 import com.example.owner.takeandgouser.model.backEnd.DBManagerFactory;
 import com.example.owner.takeandgouser.R;
+import com.example.owner.takeandgouser.model.entities.Branch;
 import com.example.owner.takeandgouser.model.entities.Car;
 
 import java.util.ArrayList;
 import java.util.List;
 
+
+
 public class CarsFragment extends Fragment {
 
+    /*
+    //definitions:
     private ExpandableListView carsExpandableList;
     private SearchView searchView;
     final MyExpandableListAdapter myBaseExpandableListAdapter = new MyExpandableListAdapter();
-
+    //lists for cars:
     private static List<Car> filterList = new ArrayList<>();
     private static List<Car> Cars = new ArrayList<>();
+    //host brunch details:
+    private  static Branch hostBrunch;
+    TextView HostBrunchTextView;
+    private int HostBrunchNumber;
 
     public CarsFragment() {// Required empty public constructor
     }
@@ -43,7 +51,7 @@ public class CarsFragment extends Fragment {
         carsExpandableList = ((ExpandableListView) rootView.findViewById(R.id.carsExpandableList));
         searchView = (SearchView) rootView.findViewById(R.id.carsSearchView);
         try {
-            new MyAsyncTask().execute();
+            new GetCarsAsyncTask().execute();
         } catch (Exception e) {
             Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_LONG).show();
         }
@@ -51,7 +59,7 @@ public class CarsFragment extends Fragment {
     }
 
 
-    private class MyAsyncTask extends AsyncTask<Car, Void, List<Car>> {
+    private class GetCarsAsyncTask extends AsyncTask<Car, Void, List<Car>> {
 
         @Override
         protected void onPostExecute(List<Car> listFromBackground) {
@@ -89,6 +97,33 @@ public class CarsFragment extends Fragment {
 
 
 
+    private class HostBrunchAsyncTask extends AsyncTask<Void, Void, List<Branch>>
+    {
+        @Override
+        protected void onPostExecute(List<Branch> listFromBackground) {
+
+            for (Branch branch : listFromBackground)
+            {
+                if (branch.getBranchNumber()== HostBrunchNumber) {
+                    hostBrunch = branch;
+                    break;
+                }
+            }
+            HostBrunchTextView.setText("Host brunch details:\n"
+                    + "parking: " + String.valueOf(hostBrunch.getParking()) + '\n'
+            + "brunch number: " + String.valueOf(hostBrunch.getBranchNumber()) + '\n'
+            + "address: " + String.valueOf(hostBrunch.getAdress()));
+        }
+
+        @Override
+        protected List<Branch> doInBackground(Void... params) {
+            try {
+                return DBManagerFactory.getManager().getBranches();
+            } catch (Exception e) {
+                return null;
+            }
+        }
+    }
 
     class MyExpandableListAdapter extends BaseExpandableListAdapter implements Filterable, View.OnClickListener {
 
@@ -138,20 +173,26 @@ public class CarsFragment extends Fragment {
 
         @Override
         public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
-            //TODO add xml car list item + implimentation of this function
-           View branchesListItem = getActivity().getLayoutInflater().inflate(R.layout.branch_list_item, parent, false); //TODO change to car list item!!
-            /*Branch branch = Branches.get(groupPosition);
-            TextView parking = (TextView) branchesListItem.findViewById(R.id.lblListParking);
-            TextView branchNumber = (TextView) branchesListItem.findViewById(R.id.lblListBranchNumber);
-            parking.setText("parking: " + String.valueOf(branch.getParking()));
-            branchNumber.setText("branch number: " + String.valueOf(branch.getBranchNumber()));
-            carsListByBranch = (ListView) branchesListItem.findViewById(R.id.carsListView);
+           View carsListItem = getActivity().getLayoutInflater().inflate(R.layout.car_list_item, parent, false);
+            Car car= Cars.get(groupPosition);
+            //defines text view:
+            TextView mileage = (TextView) carsListItem.findViewById(R.id.lblListMileage);
+            TextView isAvailable = (TextView) carsListItem.findViewById(R.id.lblListIsAvailable);
+            HostBrunchTextView = (TextView) carsListItem.findViewById(R.id.lblListHostBrunch); //HostBrunchTextView is globally defined
+            //sets text:
+            mileage.setText("Mileage: " + String.valueOf(car.getMileage()));
+            if(car.isAvailable())
+                isAvailable.setText("The car is available" );
+            else
+                isAvailable.setText("The car is not available" );
+            //represents host brunch details by asyn task:
+            HostBrunchNumber = car.getBranchNumber();
             try {
-                new carByBranchAsyncTask().execute(branch, null);
+                new HostBrunchAsyncTask().execute();
             } catch (Exception e) {
                 Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_LONG).show();
-            }*/
-            return branchesListItem;
+            }
+            return carsListItem;
         }
 
         @Override
@@ -206,7 +247,7 @@ public class CarsFragment extends Fragment {
         public void onClick(View v) {
             }
         }
-
+*/
 }
 
 

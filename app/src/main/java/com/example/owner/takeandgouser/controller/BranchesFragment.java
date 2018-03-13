@@ -66,14 +66,14 @@ public class BranchesFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_branches, container, false);
         branchesExpandableList = ((ExpandableListView) rootView.findViewById(R.id.branchesExpandableList));
         searchView = (SearchView) rootView.findViewById(R.id.mySearchView);
-        try { new MyAsyncTask().execute();}
+        try { new GetBrunchesAsyncTask().execute();}
         catch (Exception e) {
             Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_LONG).show();
         }
         return rootView;
     }
 
-    private class MyAsyncTask extends AsyncTask<Branch, Void, List<Branch>> {
+    private class GetBrunchesAsyncTask extends AsyncTask<Branch, Void, List<Branch>> {
 
         @Override
         protected void onPostExecute(List<Branch> listFromBackground) {

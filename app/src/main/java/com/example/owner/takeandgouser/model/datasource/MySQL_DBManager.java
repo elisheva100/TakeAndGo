@@ -112,7 +112,7 @@ public class MySQL_DBManager implements DB_manager {
 
         try {
             String str = PHPtools.GET(WEB_URL + "/get_available_cars.php").trim();
-            JSONArray array = new JSONObject(str).getJSONArray("availables");
+            JSONArray array = new JSONObject(str).getJSONArray("Available cars");
 
             for (int i = 0; i < array.length(); i++) {
                 JSONObject jsonObject = array.getJSONObject(i);
@@ -155,17 +155,6 @@ public class MySQL_DBManager implements DB_manager {
         return null;
 
     }
-
-
-    /*public List<Car> getAvailableCarsForBranch(Branch b){
-        List<Car> availableCars = getAvailableCars() ;
-        List<Car> result = new ArrayList<Car>();
-        for (Car car : availableCars) {
-                if (car.getBranchNumber() == b.getBranchNumber())
-                    result.add(car);
-            }
-        return result;
-    }*/
     //endregion
 
     //region branch

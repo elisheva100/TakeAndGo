@@ -27,8 +27,18 @@
 
         <fragment android:name=".controller.AboutUsFragment" />
         <fragment android:name=".controller.BranchesFragment" />
+        <fragment android:name=".controller.AvailableCarsFragment" />
 
-        <activity android:name=".controller.BranchListAdapter"></activity>
+        <activity android:name=".controller.BranchListAdapter" />
+
+        <service
+            android:name=".controller.MyIntentService"
+            android:exported="false" />
+
+        <receiver
+            android:name=".controller.MyReceiver"
+            android:enabled="false"
+            android:exported="false"></receiver>
     </application>
 
 </manifest>
