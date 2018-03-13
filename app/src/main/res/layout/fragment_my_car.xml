@@ -1,0 +1,182 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.example.owner.takeandgouser.controller.MyCarFragment">
+
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="32dp" />
+
+    <TextView
+        android:id="@+id/noOrderTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="144dp"
+        android:fontFamily="casual"
+        android:gravity="center"
+        android:text="there_is_no_open_order_in_your_name"
+        android:textAlignment="center"
+        android:textSize="30dp"
+        android:textStyle="bold"
+        android:visibility="visible" />
+
+    <LinearLayout
+        android:id="@+id/openOrderLayout"
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:layout_height="match_parent">
+
+        <LinearLayout style="@style/HorizontalLinearLayout">
+
+            <TextView
+                android:id="@+id/carNumberText"
+                style="@style/myCarStyle"
+                android:text="" />
+
+            <TextView
+                android:id="@+id/textView5"
+                style="@style/myCarStyle"
+                android:paddingLeft="20dp"
+                android:text="order for car "
+                android:layout_height="61dp" />
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/viewCarDetailsButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginTop="8dp"
+            android:text="v i e w   f u l l   c a r   d e t a i l s" />
+
+        <Button
+            android:id="@+id/closeOrder"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginTop="8dp"
+            android:text="c l o s e    o r d e r" />
+
+        <TextView
+            android:id="@+id/pleaseWaitTextView"
+            android:layout_width="377dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="0.24"
+            android:text="please_wait_while_loading"
+            android:textAlignment="center"
+            android:textAllCaps="true"
+            android:textColor="@color/Red"
+            android:textSize="15dp"
+            android:visibility="gone" />
+
+        <LinearLayout
+            android:id="@+id/closeOrderLayout"
+            android:layout_width="match_parent"
+            android:layout_height="280dp"
+            android:orientation="vertical"
+            android:weightSum="1"
+            android:layout_weight="0.19">
+
+            <TextView
+                android:id="@+id/textView4"
+                style="@style/closeOrderLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="30dp"
+                android:text="please enter information to help determine your payment:"
+                android:textAlignment="center"
+                android:textColor="#660029"
+                android:textSize="15dp" />
+
+            <TextView
+                style="@style/closeOrderLayout"
+                android:layout_width="343dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:gravity="center_vertical"
+                android:text="how_many_kilometers_did_you_drive"
+                android:textAlignment="center" />
+
+            <EditText
+                android:id="@+id/closeOrderKilometers"
+                style="@style/closeOrderLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                android:text="" />
+
+            <LinearLayout
+                style="@style/HorizontalLinearLayout"
+                android:layout_marginTop="10dp">
+
+                <TextView
+                    style="@style/closeOrderLayout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="0dp"
+                    android:text="did_you_add_gas" />
+
+                <CheckBox
+                    android:id="@+id/closeOrderAddedGas"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="0dp"
+                    android:text="Yes"
+                    android:textSize="15dp" />
+
+                <CheckBox
+                    android:id="@+id/closeOrderNoAddedGas"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:text="No"
+                    android:textSize="15dp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/closeOrderGasLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:orientation="vertical">
+
+                <TextView
+                    style="@style/closeOrderLayout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="how_much_did_you_pay_for_gas"
+                    android:textAlignment="center"></TextView>
+
+                <EditText
+                    android:id="@+id/closeOrderGasPay"
+                    style="@style/closeOrderLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"
+                    android:text="" />
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/submitCloseButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="30dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                android:text="s  u  b  m  i  t " />
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+</LinearLayout>

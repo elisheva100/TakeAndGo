@@ -22,11 +22,13 @@
         <activity android:name=".controller.MenuActivity" />
 
         <class android:name=".controller.Legal" />
+        <class android:name=".controller.MyCarDetailsView" />
 
         <activity android:name=".controller.AddClientActivity" />
 
         <fragment android:name=".controller.AboutUsFragment" />
         <fragment android:name=".controller.BranchesFragment" />
+        <fragment android:name=".controller.MyCarFragment" />
 
         <activity android:name=".controller.BranchListAdapter"></activity>
     </application>

@@ -17,4 +17,8 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="please_wait_while_loading" />
+    <string name="how_much_did_you_pay_for_gas" />
+    <string name="did_you_add_gas" />
+    <string name="how_many_kilometers_did_you_drive" />
 </resources>

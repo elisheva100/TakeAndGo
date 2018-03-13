@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:scrollbarSize="30dp"
+    android:background="@color/White">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="0dp"
+        android:layout_margin="0dp">
+        <View
+            style="@style/DividerLightBlue"
+            android:layout_marginTop="4dp"/>
+        <LinearLayout
+            style="@style/HorizontalLinearLayout">
+        <TextView
+                style="@style/CarLayoutDetails"
+                android:text="Number:"/>
+            <TextView
+                style="@style/CarLayoutDetails"
+                android:id="@+id/carNumber"
+                android:text="123456789"/>
+        </LinearLayout>
+        <View
+            style="@style/DividerLightBlue"/>
+        <LinearLayout
+            style="@style/HorizontalLinearLayout">
+
+            <TextView
+                style="@style/CarLayoutDetails"
+                android:id="@+id/carModel"
+                android:text="Model:"/>
+            <TextView
+                style="@style/CarLayoutDetails"
+                android:id="@+id/carModelNumber"
+                android:text="1" />
+
+        </LinearLayout>
+        <View
+            style="@style/DividerLightBlue"/>
+        <LinearLayout
+            style="@style/HorizontalLinearLayout">
+
+            <TextView
+                style="@style/CarLayoutDetails"
+                android:id="@+id/mileage"
+                android:text="Milage:" />
+            <TextView
+                style="@style/CarLayoutDetails"
+                android:id="@+id/carMileage"
+                android:text="23" />
+        </LinearLayout>
+        <View
+            style="@style/DividerLightBlue"/>
+        <LinearLayout
+            style="@style/HorizontalLinearLayout">
+
+            <TextView
+                android:id="@+id/branch"
+                style="@style/CarLayoutDetails"
+                android:text="Branch:" />
+            <TextView
+                style="@style/CarLayoutDetails"
+                android:id="@+id/carBranch"
+                android:paddingLeft="2dp"
+                android:text="324" />
+    </LinearLayout>
+    <View
+        style="@style/DividerLightBlue"
+        android:layout_height="wrap_content" />
+        <View
+            style="@style/DividerLightBlue"
+            android:layout_marginTop="4dp"/>
+</LinearLayout>
+</ScrollView>
