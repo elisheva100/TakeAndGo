@@ -9,7 +9,7 @@ import com.example.owner.takeandgouser.model.entities.CarModel;
 import com.example.owner.takeandgouser.model.entities.Client;
 import com.example.owner.takeandgouser.model.entities.GEARBOX;
 import com.example.owner.takeandgouser.model.entities.Order;
-import com.example.owner.takeandgouser.model.entities.Car;
+
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -218,7 +218,7 @@ public class AgencyConsts {
         DateFormat endDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"); // like MySQL Format
         String endDateString = contentValues.getAsString(OrderConst.RENT_END);
         try {
-            order.setRentStart(endDateFormat.parse(endDateString));
+            order.setRentEnd(endDateFormat.parse(endDateString));
         } catch (ParseException e) {
             e.printStackTrace();
         }

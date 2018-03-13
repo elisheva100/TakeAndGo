@@ -4,7 +4,6 @@ import android.content.ContentValues;
 
 import com.example.owner.takeandgouser.model.entities.Branch;
 import com.example.owner.takeandgouser.model.entities.Car;
-import com.example.owner.takeandgouser.model.entities.CarModel;
 import com.example.owner.takeandgouser.model.entities.Client;
 import com.example.owner.takeandgouser.model.entities.Order;
 
@@ -29,13 +28,15 @@ public interface DB_manager {
     //boolean isExistCar(long n);
     List<Car> getAvailableCars();
     List<Car> getAvailableCarsForBranch(Branch b);
+    Car getCar(long num);
     //endregion
     //region branches
     List<Branch> getBranches();
     //end region
     //region orders
     int addOrder(ContentValues order)throws Exception;
-    List<Order> getOpenOrders();
-    int closeOrder(ContentValues order)throws Exception;
+    List<Order> getOrders();
+    double closeOrder(int num, double kilometers, double gasFilled)throws Exception;
+    Order getOrder (int num);
 
 }
