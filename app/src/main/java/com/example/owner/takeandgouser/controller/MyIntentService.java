@@ -49,9 +49,9 @@ public class MyIntentService extends IntentService {
 
                  Intent myIntent = new Intent();
                  myIntent.setAction("CHANGE_CAR_STATUS");
-               //  if (DBManagerFactory.getManager().reservClosedTenSecnds())
+              //  if (DBManagerFactory.getManager().checkOrder())
                  {
-                     myIntent.putExtra("STSTUS_CHANGED","status_change");
+                     myIntent.putExtra("STSTUS_CHANGED","status_changed");
                      sendBroadcast(myIntent);
                  }
              } catch (Exception e) {

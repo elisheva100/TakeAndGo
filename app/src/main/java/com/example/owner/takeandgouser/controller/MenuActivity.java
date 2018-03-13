@@ -108,11 +108,9 @@ public class MenuActivity extends AppCompatActivity
            // showCarsFragment();
             availableCarsFragment();
 
-        } else if (id == R.id.nav_slideshow) {
-            myCarFragment();
-
         } else if (id == R.id.nav_manage) {
 
+            myCarFragment();
         } else if (id == R.id.nav_share) {
 
         } else if (id == R.id.nav_send) {
