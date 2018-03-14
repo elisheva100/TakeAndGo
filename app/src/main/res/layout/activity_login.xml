@@ -104,9 +104,10 @@
             android:text="l o g i n"
             android:textSize="18dp"
             android:layout_marginBottom="13dp"
+            android:textStyle="italic"
             android:layout_above="@+id/AskUserView"
             android:layout_toEndOf="@+id/imageView3"
-            android:layout_marginStart="20dp" />
+             />
             <!--app:layout_constraintTop_toBottomOf="@+id/savePreferencesCheckBox" />-->
 
         <TextView
@@ -116,7 +117,6 @@
             android:layout_marginLeft="8dp"
             android:layout_marginRight="8dp"
             android:text="Doesn't have an account yet?"
-            android:textColor="#262626"
             android:textSize="18dp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
@@ -133,7 +133,6 @@
             android:layout_marginRight="8dp"
             android:clickable="true"
             android:text="Click here to register"
-            android:textColor="#262626"
             android:textSize="18dp"
             android:textStyle="bold"
             app:layout_constraintLeft_toLeftOf="parent"
@@ -151,6 +150,7 @@
             android:layout_below="@+id/idEditText"
             android:textStyle="italic"
             android:textSize="15dp"
+            android:textColor="@color/DodgerBlue"
             android:layout_alignEnd="@+id/nameEditText"
             android:layout_marginEnd="11dp" />
 
@@ -161,12 +161,10 @@
             android:text="Load password"
             android:textStyle="italic"
             android:textSize="15dp"
+            android:textColor="@color/DodgerBlue"
             android:layout_alignBaseline="@+id/clearCheckBox"
             android:layout_alignBottom="@+id/clearCheckBox"
             android:layout_alignStart="@+id/AskUserView" />
-
-
-        <!--app:layout_constraintTop_toBottomOf="@+id/userEmailViewMenu" />-->
 
     </RelativeLayout>
 
