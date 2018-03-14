@@ -12,7 +12,9 @@
         android:id="@+id/lblListBranchNumber"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:textSize="17dip"
+        android:gravity="left"
+        android:textSize="17sp"
+        android:textStyle="bold"
         android:paddingTop="5dp"
         android:paddingBottom="5dp"
         android:paddingLeft="?android:attr/expandableListPreferredChildPaddingLeft"
@@ -23,23 +25,20 @@
         android:id="@+id/lblListParking"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:textSize="17dip"
+        android:gravity="left"
+        android:textSize="17sp"
+        android:textStyle="bold"
         android:paddingTop="5dp"
         android:paddingBottom="5dp"
         android:paddingLeft="?android:attr/expandableListPreferredChildPaddingLeft"
         android:layout_weight="0.09" />
 
-   <!-- <Button
-        android:id="@+id/showCarsButton"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="show available cars"
-        android:background="@color/Snow"/>-->
+
 
     <ListView
         android:id="@+id/carsListView"
         android:layout_width="match_parent"
-        android:layout_height="56dp" />
+        android:layout_height="56dp"/>
         <!--android:visibility="gone"/>-->
 
 

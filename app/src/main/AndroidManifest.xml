@@ -41,9 +41,14 @@
             android:exported="false" />
 
         <receiver
-            android:name=".controller.MyReceiver"
-            android:enabled="false"
-            android:exported="false"></receiver>
+            android:name=".controller.MyReceiver">
+            <!--android:enabled="false"
+            android:exported="false">-->
+        <intent-filter>
+            <action android:name="STSTUS_CHANGED"></action>
+        </intent-filter>
+
+        </receiver>
     </application>
 
 </manifest>

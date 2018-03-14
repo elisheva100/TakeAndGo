@@ -3,7 +3,6 @@ package com.example.owner.takeandgouser.controller;
 import android.app.IntentService;
 import android.app.Notification;
 import android.content.Intent;
-import android.content.Context;
 import android.support.annotation.Nullable;
 
 import com.example.owner.takeandgouser.R;
@@ -27,7 +26,8 @@ public class MyIntentService extends IntentService {
     public void onCreate() {
         super.onCreate();
         Notification.Builder nBuilder = new Notification.Builder(getBaseContext());
-        nBuilder.setSmallIcon(R.drawable.ic_menu_share); //TODO to change to onther picture
+       // nBuilder.setSmallIcon(R.drawable.ic_menu_share); //TODO to change to onther picture
+        nBuilder.setSmallIcon(R.mipmap.ic_sport_car);
         nBuilder.setContentTitle("service");
         nBuilder.setContentText("service is running...");
         Notification notification = nBuilder.build();
@@ -49,9 +49,9 @@ public class MyIntentService extends IntentService {
 
                  Intent myIntent = new Intent();
                  myIntent.setAction("CHANGE_CAR_STATUS");
-              //  if (DBManagerFactory.getManager().checkOrder())
+                if (DBManagerFactory.getManager().checkOrder())
                  {
-                     myIntent.putExtra("STSTUS_CHANGED","status_changed");
+                     myIntent.putExtra("STATUS_CHANGED","status_changed");
                      sendBroadcast(myIntent);
                  }
              } catch (Exception e) {
