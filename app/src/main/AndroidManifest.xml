@@ -45,7 +45,7 @@
             <!--android:enabled="false"
             android:exported="false">-->
         <intent-filter>
-            <action android:name="STSTUS_CHANGED"></action>
+            <action android:name="STATUS_CHANGED"></action>
         </intent-filter>
 
         </receiver>

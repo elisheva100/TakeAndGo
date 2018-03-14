@@ -45,7 +45,6 @@ public class MenuActivity extends AppCompatActivity
 
 
         MyReceiver myReceiver = new MyReceiver();
-
         IntentFilter filter = new IntentFilter("CHANGE_CAR_STATUS");
         registerReceiver(myReceiver,filter);
         startService(new Intent(this,MyIntentService.class));
