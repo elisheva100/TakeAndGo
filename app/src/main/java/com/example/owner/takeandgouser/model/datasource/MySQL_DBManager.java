@@ -1,6 +1,7 @@
 package com.example.owner.takeandgouser.model.datasource;
 
 import android.content.ContentValues;
+import android.support.design.widget.BaseTransientBottomBar;
 import android.util.Log;
 
 import com.example.owner.takeandgouser.model.backEnd.AgencyConsts;
@@ -20,6 +21,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+
+import javax.xml.datatype.Duration;
 
 //TODO continue that process : creare sql for table
 public class MySQL_DBManager implements DB_manager {
@@ -329,11 +332,16 @@ public Order getOrder(int num)
 
     }
 
-   /*private boolean checkOrder()
+   public boolean checkOrder()
    {
-       Date now = Calendar.getInstance().;
+       Date now = Calendar.getInstance().getTime();
+       for (Order order : getOrders()) {
+           if (!order.isOpen() && checkTimeRange(now, order.getRentEnd()))
+               return true;
+       }
+       return  false;
 
-   }*/
+   }
     //end region
     private long daysBetween(Date startDate, Date endDate) {
         Calendar sDate = getDatePart(startDate);
@@ -380,5 +388,20 @@ public Order getOrder(int num)
         }
         return hours;
     }
+
+    private boolean checkTimeRange(Date now , Date date){
+        if (date == null)
+            return false;
+        Calendar calNow = getDatePart(now);
+        if(calNow.equals(getDatePart(date))){       // check if the date as the same day, month and year
+            calNow.setTime(now);                    // "setting back" the time properties for now
+            calNow.add(Calendar.SECOND,-10);        // find the time 10 seconds ago
+            if(date.after(calNow.getTime()) ||      // if date is in the last 10 seconds
+                    date.equals(calNow.getTime()))  // or date is exactly 10 seconds ago
+                return true;
+        }
+        return false;
+    }
+
 }
 

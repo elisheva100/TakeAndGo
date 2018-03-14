@@ -9,11 +9,13 @@ public class MyReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        // TODO: This method is called when the BroadcastReceiver is receiving
-        // an Intent broadcast.
+        Toast t = null;
+        if (intent.hasExtra("STATUS_CHANGED"))
+            t = Toast.makeText(context, "new car is available now..", Toast.LENGTH_LONG);
+        else
+            t.cancel();
+        t.show();
 
-        if (intent.hasExtra("STSTUS_CHANGED"))
-            Toast.makeText(context,"new car is available now..",Toast.LENGTH_LONG).show();
-        //throw new UnsupportedOperationException("Not yet implemented");
     }
 }
+

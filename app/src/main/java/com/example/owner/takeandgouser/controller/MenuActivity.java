@@ -35,15 +35,13 @@ public class MenuActivity extends AppCompatActivity
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                /*Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();*/
                 exit_dialog();
 
             }
         });
 
 
-        MyReceiver myReceiver = new MyReceiver(); //TODO check it!!
+        MyReceiver myReceiver = new MyReceiver();
         IntentFilter filter = new IntentFilter("CHANGE_CAR_STATUS");
         registerReceiver(myReceiver,filter);
         startService(new Intent(this,MyIntentService.class));
@@ -123,32 +121,6 @@ public class MenuActivity extends AppCompatActivity
     }
 
 
-
-//    private NavigationView navView;
-//    private Toolbar toolbar;
-//    private FloatingActionButton fab;
-
-    /**
-     * Find the Views in the layout<br />
-     * <br />
-     * Auto-created on 2018-01-12 03:01:30 by Android Layout Finder
-     * (http://www.buzzingandroid.com/tools/android-layout-finder)
-     */
-//    private void findViews() {
-//        navView = (NavigationView) findViewById(R.id.nav_view);
-//        toolbar = (Toolbar)findViewById( R.id.toolbar );
-//        fab = (FloatingActionButton)findViewById( R.id.fab );
-//
-//        fab.setOnClickListener( this );
-//    }
-//
-//
-//    @Override
-//    public void onClick(View v) {
-//        if ( v == fab ) {
-//            // Handle clicks for fab
-//        }
-//    }
     private void aboutCompanyFragment() {
         	        AboutUsFragment fragment = new AboutUsFragment();
         	        FragmentManager manager = getSupportFragmentManager();

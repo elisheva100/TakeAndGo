@@ -38,5 +38,6 @@ public interface DB_manager {
     List<Order> getOrders();
     double closeOrder(int num, double kilometers, double gasFilled)throws Exception;
     Order getOrder (int num);
+   boolean checkOrder();
 
 }
