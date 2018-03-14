@@ -43,10 +43,10 @@ public class MenuActivity extends AppCompatActivity
         });
 
 
-        MyReceiver myReceiver = new MyReceiver(); //TODO check it!!
+        /*MyReceiver myReceiver = new MyReceiver(); //TODO check it!!
         IntentFilter filter = new IntentFilter("CHANGE_CAR_STATUS");
         registerReceiver(myReceiver,filter);
-        startService(new Intent(this,MyIntentService.class));
+        startService(new Intent(this,MyIntentService.class));*/
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -108,12 +108,12 @@ public class MenuActivity extends AppCompatActivity
            // showCarsFragment();
             availableCarsFragment();
 
+
         } else if (id == R.id.nav_manage) {
             myCarFragment();
+        }
 
-        } else if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.nav_share) {
+         else if (id == R.id.nav_share) {
 
         } else if (id == R.id.nav_send) {
 

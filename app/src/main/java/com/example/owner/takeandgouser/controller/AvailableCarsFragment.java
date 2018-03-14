@@ -3,17 +3,14 @@ package com.example.owner.takeandgouser.controller;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.AsyncTask;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.ExpandableListView;
 import android.widget.Filter;
 import android.widget.Filterable;
-import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -22,7 +19,6 @@ import com.example.owner.takeandgouser.R;
 import com.example.owner.takeandgouser.model.backEnd.DBManagerFactory;
 import com.example.owner.takeandgouser.model.entities.Branch;
 import com.example.owner.takeandgouser.model.entities.Car;
-
 
 import java.util.ArrayList;
 import java.util.List;
@@ -124,7 +120,7 @@ public class AvailableCarsFragment extends Fragment {
                     break;
                 }
             }
-            HostBrunchTextView.setText("Host brunch details:\n"
+            HostBrunchTextView.setText("Host branch details:\n"
                     + "parking: " + String.valueOf(hostBrunch.getParking()) + '\n'
                     + "brunch number: " + String.valueOf(hostBrunch.getBranchNumber()) + '\n'
                     + "address: " + String.valueOf(hostBrunch.getAdress()));
@@ -192,14 +188,16 @@ public class AvailableCarsFragment extends Fragment {
             Car car= Cars.get(groupPosition);
             //defines text view:
             TextView mileage = (TextView) carsListItem.findViewById(R.id.lblListMileage);
-            TextView isAvailable = (TextView) carsListItem.findViewById(R.id.lblListIsAvailable);
+            //TextView isAvailable = (TextView) carsListItem.findViewById(R.id.lblListIsAvailable);
             HostBrunchTextView = (TextView) carsListItem.findViewById(R.id.lblListHostBrunch); //HostBrunchTextView is globally defined
             //sets text:
             mileage.setText("Mileage: " + String.valueOf(car.getMileage()));
+            /*
             if(car.isAvailable())
                 isAvailable.setText("The car is available" );
             else
                 isAvailable.setText("The car is not available" );
+            */
             //represents host brunch details by asyn task:
             HostBrunchNumber = car.getBranchNumber();
             try {

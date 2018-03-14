@@ -14,12 +14,12 @@
     <TextView
         android:id="@+id/noOrderTextView"
         android:layout_width="wrap_content"
-        android:layout_height="144dp"
+        android:layout_height="62dp"
         android:fontFamily="casual"
         android:gravity="center"
-        android:text="there_is_no_open_order_in_your_name"
+        android:text="there is no open order in your name"
         android:textAlignment="center"
-        android:textSize="30dp"
+        android:textSize="18dp"
         android:textStyle="bold"
         android:visibility="visible" />
 
@@ -41,7 +41,7 @@
                 style="@style/myCarStyle"
                 android:paddingLeft="20dp"
                 android:text="order for car "
-                android:layout_height="61dp" />
+                android:layout_height="wrap_content" />
         </LinearLayout>
 
         <Button
@@ -79,18 +79,18 @@
         <LinearLayout
             android:id="@+id/closeOrderLayout"
             android:layout_width="match_parent"
-            android:layout_height="280dp"
+            android:layout_height="match_parent"
             android:orientation="vertical"
-            android:weightSum="1"
-            android:layout_weight="0.19">
+            android:weightSum="1">
 
             <TextView
                 android:id="@+id/textView4"
                 style="@style/closeOrderLayout"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
                 android:layout_marginTop="30dp"
+                android:layout_weight="0.15"
                 android:text="please enter information to help determine your payment:"
                 android:textAlignment="center"
                 android:textColor="#660029"
@@ -109,7 +109,7 @@
                 android:id="@+id/closeOrderKilometers"
                 style="@style/closeOrderLayout"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="25dp"
                 android:inputType="number"
                 android:text="" />
 
@@ -127,7 +127,7 @@
                 <CheckBox
                     android:id="@+id/closeOrderAddedGas"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="21dp"
                     android:layout_marginLeft="0dp"
                     android:text="Yes"
                     android:textSize="15dp" />
@@ -135,7 +135,7 @@
                 <CheckBox
                     android:id="@+id/closeOrderNoAddedGas"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="20dp"
                     android:layout_marginLeft="5dp"
                     android:text="No"
                     android:textSize="15dp" />
@@ -159,7 +159,7 @@
                     android:id="@+id/closeOrderGasPay"
                     style="@style/closeOrderLayout"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="24dp"
                     android:inputType="number"
                     android:text="" />
             </LinearLayout>

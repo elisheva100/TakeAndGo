@@ -328,6 +328,12 @@ public Order getOrder(int num)
         return null;
 
     }
+
+   /*private boolean checkOrder()
+   {
+       Date now = Calendar.getInstance().;
+
+   }*/
     //end region
     private long daysBetween(Date startDate, Date endDate) {
         Calendar sDate = getDatePart(startDate);
