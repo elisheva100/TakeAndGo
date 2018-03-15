@@ -1,4 +1,4 @@
-package com.example.owner.takeandgouser.controller;
+package com.example.owner.takeandgouser.controller.Fragments;
 
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
@@ -19,6 +19,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.owner.takeandgouser.R;
+import com.example.owner.takeandgouser.controller.MyCarDetailsView;
 import com.example.owner.takeandgouser.model.backEnd.DBManagerFactory;
 import com.example.owner.takeandgouser.model.entities.Car;
 import com.example.owner.takeandgouser.model.entities.Order;
@@ -224,7 +225,7 @@ public class MyCarFragment extends Fragment implements View.OnClickListener {
     }
 
     /**
-     * collect the data the client filled and validates it, if all good, closes the order
+     * collectד the data the client filled and validates it, if all good, closes the order
      * and lets the client know what is the final payment
      */
     private void closeOrderStep2() {

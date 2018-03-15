@@ -1,4 +1,4 @@
-package com.example.owner.takeandgouser.controller;
+package com.example.owner.takeandgouser.controller.Activities;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -18,6 +18,12 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.example.owner.takeandgouser.R;
+import com.example.owner.takeandgouser.controller.Fragments.AboutUsFragment;
+import com.example.owner.takeandgouser.controller.Fragments.AvailableCarsFragment;
+import com.example.owner.takeandgouser.controller.Fragments.BranchesFragment;
+import com.example.owner.takeandgouser.controller.Fragments.MyCarFragment;
+import com.example.owner.takeandgouser.controller.MyIntentService;
+import com.example.owner.takeandgouser.controller.MyReceiver;
 
 public class MenuActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {

@@ -1,4 +1,4 @@
-package com.example.owner.takeandgouser.controller;
+package com.example.owner.takeandgouser.controller.Activities;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
@@ -12,6 +12,8 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.owner.takeandgouser.controller.Legal;
 import com.example.owner.takeandgouser.model.backEnd.AgencyConsts;
 import com.example.owner.takeandgouser.model.backEnd.DBManagerFactory;
 import com.example.owner.takeandgouser.R;

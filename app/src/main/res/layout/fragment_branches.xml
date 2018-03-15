@@ -3,7 +3,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.owner.takeandgouser.controller.BranchesFragment">
+    tools:context="com.example.owner.takeandgouser.controller.Fragments.BranchesFragment">
 
     <Space
         android:layout_width="match_parent"

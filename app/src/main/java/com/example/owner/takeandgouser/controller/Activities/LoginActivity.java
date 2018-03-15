@@ -1,4 +1,4 @@
-package com.example.owner.takeandgouser.controller;
+package com.example.owner.takeandgouser.controller.Activities;
 
 import android.content.Intent;
 import android.content.SharedPreferences;

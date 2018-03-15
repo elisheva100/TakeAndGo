@@ -11,20 +11,20 @@
         android:roundIcon="@mipmap/car_logo_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".controller.MainActivity">
+        <activity android:name=".controller.Activities.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".controller.LoginActivity" />
-        <activity android:name=".controller.MenuActivity" />
+        <activity android:name=".controller.Activities.LoginActivity" />
+        <activity android:name=".controller.Activities.MenuActivity" />
 
         <class android:name=".controller.Legal" />
         <class android:name=".controller.MyCarDetailsView" />
 
-        <activity android:name=".controller.AddClientActivity" />
+        <activity android:name=".controller.Activities.AddClientActivity" />
 
         <fragment android:name=".controller.AboutUsFragment" />
         <fragment android:name=".controller.BranchesFragment" />
