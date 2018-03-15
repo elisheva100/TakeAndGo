@@ -38,6 +38,7 @@ public interface DB_manager {
     List<Order> getOrders();
     Double closeOrder(int num, double kilometers, double gasFilled)throws Exception;
     Order getOrder (int num);
-   boolean checkOrder();
+    boolean checkOrder();
+    //end region
 
 }
