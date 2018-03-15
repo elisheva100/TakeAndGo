@@ -96,24 +96,16 @@ public class MenuActivity extends AppCompatActivity
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
         int id = item.getItemId();
-
         if (id == R.id.nav_camera) {
             aboutCompanyFragment();
         } else if (id == R.id.nav_gallery) {
-
-            //availableCarsFragment();
             showBranchesFragment();
         } else if (id == R.id.nav_slideshow) {
-           // showCarsFragment();
             availableCarsFragment();
-
-
         } else if (id == R.id.nav_manage) {
             myCarFragment();
         }
-
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;

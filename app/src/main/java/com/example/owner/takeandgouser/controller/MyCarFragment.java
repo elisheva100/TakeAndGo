@@ -29,7 +29,6 @@ import java.util.List;
 public class MyCarFragment extends Fragment implements View.OnClickListener {
 
     static int orderNumber = -1;
-    //static double payment = -1.0;
     View view;
     Car car;
     Order order;
@@ -182,8 +181,6 @@ public class MyCarFragment extends Fragment implements View.OnClickListener {
             openOrderLayout.setVisibility(View.VISIBLE);
             carNumberText.setText("" + car.getNumber());
             pleaseWaitTextView.setVisibility(View.GONE);
-            //closeOrderLayout.setVisibility(View.VISIBLE);
-            //closeOrderGasLayout.setVisibility(View.VISIBLE);
         }
     }
 
@@ -254,32 +251,6 @@ public class MyCarFragment extends Fragment implements View.OnClickListener {
             else
                 pay = Double.valueOf(closeOrderGasPay.getText().toString());
             final double kilometers = Double.valueOf(closeOrderKilometers.getText().toString());
-
-          /*  new AsyncTask<Void, Double, Double>() {
-                @Override
-                protected void onPostExecute(Double payment) {
-                    pleaseWaitTextView.setVisibility(View.GONE);
-                    if (payment > -1) { // if closing successful let the client know the final payment
-                        payDialog(payment);
-                        //activityListener.closeReservation();
-
-                        getActivity().onBackPressed();
-
-                    }
-                }
-
-                @Override
-                protected Double doInBackground(Void... params) {
-                    try {
-
-                        return  Double.valueOf(DBManagerFactory.getManager().closeOrder(order.getOrderNumber(), kilometers, pay));
-                    } catch (Exception e) {
-
-                        return  Double.valueOf(-1.0);
-                    }
-
-                }
-            }.execute();*/
             new AsyncTask<Void, Double, Double>() {
 
                 @Override
