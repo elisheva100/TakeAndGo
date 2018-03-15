@@ -213,18 +213,12 @@ public class BranchesFragment extends Fragment {
             mapView.setOnClickListener(this);
 
 
+
             return header;
 
         }
 
-        public void onGroupExpand(int groupPosition) {
-            int lenght = myBaseExpandableListAdapter.getGroupCount();
-            for (int i = 0; i < lenght; i++) {
-                if (i != groupPosition) {
-                    branchesExpandableList.collapseGroup(i);
-                }
-            }
-        }
+
 
 
 
@@ -236,7 +230,7 @@ public class BranchesFragment extends Fragment {
             TextView branchNumber = (TextView) branchesListItem.findViewById(R.id.lblListBranchNumber);
             parking.setText("parking: " + String.valueOf(branch.getParking()));
             branchNumber.setText("branch number: " + String.valueOf(branch.getBranchNumber()));
-            //onGroupExpand(groupPosition);
+
 
 
             carsListByBranch = (ListView) branchesListItem.findViewById(R.id.carsListView);
