@@ -10,11 +10,13 @@ public class MyReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         Toast t = null;
-        if (intent.hasExtra("STATUS_CHANGED"))
+        if (intent.hasExtra("STATUS_CHANGED")) {
             t = Toast.makeText(context, "new car is available now..", Toast.LENGTH_LONG);
+            t.show();
+        }
         else
             t.cancel();
-        t.show();
+        //t.show();
 
     }
 }

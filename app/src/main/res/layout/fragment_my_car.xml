@@ -13,15 +13,15 @@
 
     <TextView
         android:id="@+id/noOrderTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="62dp"
+        android:layout_width="321dp"
+        android:layout_height="123dp"
         android:fontFamily="casual"
         android:gravity="center"
         android:text="there is no open order in your name"
         android:textAlignment="center"
-        android:textSize="18dp"
-        android:textStyle="bold"
-        android:visibility="visible" />
+        android:textColor="@color/Red"
+        android:textSize="30dp"
+        android:textStyle="bold" />
 
     <LinearLayout
         android:id="@+id/openOrderLayout"
@@ -29,39 +29,61 @@
         android:orientation="vertical"
         android:layout_height="match_parent">
 
-        <LinearLayout style="@style/HorizontalLinearLayout">
-
-            <TextView
-                android:id="@+id/carNumberText"
-                style="@style/myCarStyle"
-                android:text="" />
+        <LinearLayout style="@style/HorizontalLinearLayout"
+            android:weightSum="1"
+            android:gravity="center">
 
             <TextView
                 android:id="@+id/textView5"
                 style="@style/myCarStyle"
                 android:paddingLeft="20dp"
                 android:text="order for car "
-                android:layout_height="wrap_content" />
+                android:textColor="@color/HotPink"
+                android:textSize="25dp"/>
+
+            <TextView
+                android:id="@+id/carNumberText"
+                style="@style/myCarStyle"
+                android:layout_width="wrap_content"
+                android:layout_weight="0.34"
+                android:text=""
+                android:textColor="@color/HotPink"
+                android:textSize="25dp"/>
+
         </LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center">
 
         <Button
             android:id="@+id/viewCarDetailsButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_width="315dp"
+            android:layout_height="36dp"
             android:layout_marginLeft="8dp"
             android:layout_marginRight="8dp"
             android:layout_marginTop="8dp"
+            android:background="@drawable/my_button"
             android:text="v i e w   f u l l   c a r   d e t a i l s" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center">
 
         <Button
             android:id="@+id/closeOrder"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_width="314dp"
+            android:layout_height="37dp"
             android:layout_marginBottom="8dp"
             android:layout_marginLeft="8dp"
             android:layout_marginRight="8dp"
             android:layout_marginTop="8dp"
+            android:background="@drawable/my_button"
             android:text="c l o s e    o r d e r" />
+        </LinearLayout>
+
 
         <TextView
             android:id="@+id/pleaseWaitTextView"
@@ -81,35 +103,23 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:weightSum="1">
+            >
 
-            <TextView
-                android:id="@+id/textView4"
-                style="@style/closeOrderLayout"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="30dp"
-                android:layout_weight="0.15"
-                android:text="please enter information to help determine your payment:"
-                android:textAlignment="center"
-                android:textColor="#660029"
-                android:textSize="15dp" />
 
             <TextView
                 style="@style/closeOrderLayout"
-                android:layout_width="343dp"
-                android:layout_height="wrap_content"
+                android:layout_width="336dp"
+                android:layout_height="31dp"
                 android:layout_marginTop="15dp"
-                android:gravity="center_vertical"
-                android:text="how_many_kilometers_did_you_drive"
-                android:textAlignment="center" />
+                android:layout_marginRight="0dp"
+                android:text="how many kilometers did you drive"
+                />
 
             <EditText
                 android:id="@+id/closeOrderKilometers"
                 style="@style/closeOrderLayout"
                 android:layout_width="match_parent"
-                android:layout_height="25dp"
+                android:layout_height="wrap_content"
                 android:inputType="number"
                 android:text="" />
 
@@ -122,7 +132,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="0dp"
-                    android:text="did_you_add_gas" />
+                    android:text="did you add gas" />
 
                 <CheckBox
                     android:id="@+id/closeOrderAddedGas"
@@ -152,27 +162,34 @@
                     style="@style/closeOrderLayout"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:text="how_much_did_you_pay_for_gas"
+                    android:text="how much did you pay for gas"
                     android:textAlignment="center"></TextView>
 
                 <EditText
                     android:id="@+id/closeOrderGasPay"
                     style="@style/closeOrderLayout"
                     android:layout_width="match_parent"
-                    android:layout_height="24dp"
+                    android:layout_height="wrap_content"
                     android:inputType="number"
                     android:text="" />
             </LinearLayout>
 
-            <Button
-                android:id="@+id/submitCloseButton"
-                android:layout_width="match_parent"
+            <LinearLayout
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="30dp"
-                android:layout_marginLeft="30dp"
-                android:layout_marginRight="30dp"
-                android:text="s  u  b  m  i  t " />
+                android:gravity="center"
+                >
 
+                <Button
+                    android:id="@+id/submitCloseButton"
+                    android:layout_width="259dp"
+                    android:layout_height="59dp"
+                    android:layout_marginBottom="30dp"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginRight="30dp"
+                    android:background="@drawable/my_button"
+                    android:text="s  u  b  m  i  t " />
+            </LinearLayout>
 
         </LinearLayout>
 

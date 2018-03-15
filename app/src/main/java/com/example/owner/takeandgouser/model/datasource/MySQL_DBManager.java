@@ -1,7 +1,6 @@
 package com.example.owner.takeandgouser.model.datasource;
 
 import android.content.ContentValues;
-import android.support.design.widget.BaseTransientBottomBar;
 import android.util.Log;
 
 import com.example.owner.takeandgouser.model.backEnd.AgencyConsts;
@@ -21,8 +20,6 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
-
-import javax.xml.datatype.Duration;
 
 //TODO continue that process : creare sql for table
 public class MySQL_DBManager implements DB_manager {
@@ -257,7 +254,7 @@ public Order getOrder(int num)
 
 }
 @Override
-    public double closeOrder (int number , double kilometers , double gasFilled) throws Exception {
+    public Double closeOrder (int number , double kilometers , double gasFilled) throws Exception {
 
         Order order = getOrder(number);
         order.setRentEnd(Calendar.getInstance().getTime());
@@ -269,9 +266,9 @@ public Order getOrder(int num)
         else
             order.setGasFilled(true);
         order.setGasLiters(gasFilled);
-        double finalPayment = calculatePayment(order);
+        Double finalPayment = calculatePayment(order);
         if(finalPayment < 0)
-            finalPayment = 0; //for case the client filled to much gas.
+            finalPayment = Double.valueOf(0); //for case the client filled to much gas.
         order.setFinalBilling(finalPayment);
         ContentValues orderContentValue = AgencyConsts.OrderToContentValues(order);
         orderContentValue.put(AgencyConsts.OrderConst.RENT_END, new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()).format(new Date()));
@@ -284,22 +281,22 @@ public Order getOrder(int num)
         try {
             String result = PHPtools.POST(WEB_URL + "/close_order.php", orderContentValue);
             result = result.trim();
-            int numResult = Integer.parseInt(result);
+            //int numResult = Integer.parseInt(result);
             if (result != null)
                 SetUpdate();
             printLog("closeOrder:\n" + result);
             //return numResult;
         } catch (IOException e) {
             printLog("closeOrder Exception:\n" + e);
-            return -1;
+            return Double.valueOf(-1);
         }
         updateCar(carContentValue);
 
         return finalPayment;
     }
 
-    private double calculatePayment(Order order) {
-        double finalPayment = 0 ;
+    private Double calculatePayment(Order order) {
+        Double finalPayment = 0.0 ;
         long daysOfRent = daysBetween(order.getRentStart(),order.getRentEnd());
         double hoursOfRent = hoursOfRent(order,daysOfRent);
         finalPayment = (hoursOfRent + daysOfRent * 24.0) * 15 ; //15 dollars for hour rent
@@ -336,7 +333,7 @@ public Order getOrder(int num)
    {
        Date now = Calendar.getInstance().getTime();
        for (Order order : getOrders()) {
-           if (!order.isOpen() && checkTimeRange(now, order.getRentEnd()))
+           if (!(order.isOpen()) && checkTimeRange(now, order.getRentEnd()))
                return true;
        }
        return  false;

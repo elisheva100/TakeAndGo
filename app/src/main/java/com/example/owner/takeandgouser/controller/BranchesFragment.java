@@ -37,7 +37,6 @@ import com.example.owner.takeandgouser.model.entities.Order;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -429,7 +428,19 @@ public class BranchesFragment extends Fragment {
 
                 @Override
                 protected void onPostExecute(String numOrder) {
-                    Toast.makeText(getActivity(), "Order number: " + numOrder + " added successfully", Toast.LENGTH_LONG).show();
+                    //Toast.makeText(getActivity(), "Order number: " + numOrder + " added successfully", Toast.LENGTH_LONG).show();
+                    AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                    builder.setIcon(R.mipmap.ic_action_check);
+                    String message = "Order number: " + numOrder + " opened successfully";
+                    builder.setMessage(message);
+                    AlertDialog.OnClickListener onClickListener = new AlertDialog.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            return;
+                        }
+                    };
+                    builder.setNeutralButton("Got it",onClickListener);
+                    builder.show();
                 }
             }.execute();
         }
@@ -437,6 +448,10 @@ public class BranchesFragment extends Fragment {
 
         }
     }
+
+
+
+
 
 
 

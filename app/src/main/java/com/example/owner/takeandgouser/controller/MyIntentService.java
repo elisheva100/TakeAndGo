@@ -41,21 +41,22 @@ public class MyIntentService extends IntentService {
     }
 
     @Override
-    protected void onHandleIntent(Intent intent) {
+    protected void onHandleIntent(@Nullable Intent intent) {
 
          while (true) {
              try {
-                 Thread.sleep(1000);
+                 Thread.sleep(10000);
 
                  Intent myIntent = new Intent();
                  myIntent.setAction("CHANGE_CAR_STATUS");
-                if (DBManagerFactory.getManager().checkOrder())
-                 {
+                 if(DBManagerFactory.getManager().checkOrder())                                {
+
                      myIntent.putExtra("STATUS_CHANGED","status_changed");
                      sendBroadcast(myIntent);
                  }
              } catch (Exception e) {
                  Thread.currentThread().interrupt();
+                 e.printStackTrace();
              }
          }
     }

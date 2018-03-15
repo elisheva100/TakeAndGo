@@ -42,10 +42,9 @@
 
         <receiver
             android:name=".controller.MyReceiver">
-            <!--android:enabled="false"
-            android:exported="false">-->
+
         <intent-filter>
-            <action android:name="STATUS_CHANGED"></action>
+            <action android:name="CHANGE_CAR_STATUS"></action>
         </intent-filter>
 
         </receiver>

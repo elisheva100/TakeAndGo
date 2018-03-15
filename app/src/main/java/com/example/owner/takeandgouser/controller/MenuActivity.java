@@ -114,12 +114,6 @@ public class MenuActivity extends AppCompatActivity
             myCarFragment();
         }
 
-         else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
-
-        }
-
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
@@ -132,16 +126,18 @@ public class MenuActivity extends AppCompatActivity
         	        manager.beginTransaction().replace(R.id.content_frame,fragment).addToBackStack("AboutUsFragment").commit();
             }
 
-    private void availableCarsFragment() {
-        AvailableCarsFragment fragment = new AvailableCarsFragment();
-        FragmentManager manager = getSupportFragmentManager();
-        manager.beginTransaction().replace(R.id.content_frame,fragment).commit();
-    }
+
 
     private void showBranchesFragment() {
         BranchesFragment fragment = new BranchesFragment();
         FragmentManager manager = getSupportFragmentManager();
         manager.beginTransaction().replace(R.id.content_frame,fragment).addToBackStack("BranchesFragment").commit();
+    }
+
+    private void availableCarsFragment() {
+        AvailableCarsFragment fragment = new AvailableCarsFragment();
+        FragmentManager manager = getSupportFragmentManager();
+        manager.beginTransaction().replace(R.id.content_frame,fragment).addToBackStack("AvailableCarsFragment").commit();
     }
 
 

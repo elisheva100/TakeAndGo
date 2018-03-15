@@ -12,25 +12,13 @@
             android:title="Branches" />
         <item
             android:id="@+id/nav_slideshow"
-            android:icon="@mipmap/ic_sport_car"
-            android:title="My car" />
+            android:icon="@mipmap/cars"
+            android:title="Available cars" />
         <item
             android:id="@+id/nav_manage"
-            android:icon="@drawable/ic_menu_manage"
-            android:title="Tools" />
+            android:icon="@mipmap/vehicle"
+            android:title="My car" />
     </group>
 
-    <item android:title="Communicate">
-        <menu>
-            <items
-                android:id="@+id/nav_share"
-                android:icon="@drawable/ic_menu_share"
-                android:title="Share" />
-            <item
-                android:id="@+id/nav_send"
-                android:icon="@drawable/ic_menu_send"
-                android:title="Send" />
-        </menu>
-    </item>
 
 </menu>

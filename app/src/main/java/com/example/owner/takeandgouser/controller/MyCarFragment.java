@@ -1,6 +1,5 @@
 package com.example.owner.takeandgouser.controller;
 
-import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
@@ -51,30 +50,7 @@ public class MyCarFragment extends Fragment implements View.OnClickListener {
     LinearLayout closeOrderLayout;
 
     LinearLayout openOrderLayout;
-    OnReservationClosedListener activityListener;
 
-    /**
-     * inner interface to update te menu activity that the client has closed its reservation
-     */
-    public interface OnReservationClosedListener{
-        public void closeReservation();
-    }
-
-
-    /**
-     * function to check if the activity that activated the fragment has implemented the fragment interface
-     * @param activity the activity that activated the fragment
-     */
-    @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-        try{
-            activityListener = (OnReservationClosedListener)activity;
-        }
-        catch (ClassCastException e){
-            e.printStackTrace();
-        }
-    }
 
 
 
@@ -109,7 +85,7 @@ public class MyCarFragment extends Fragment implements View.OnClickListener {
 
         closeOrderLayout.setVisibility(View.GONE);
         closeOrderGasLayout.setVisibility(View.GONE);
-        //pleaseWaitTextView.setVisibility(View.GONE);
+        pleaseWaitTextView.setVisibility(View.GONE);
 
         submitCloseButton.setOnClickListener(this);
 
@@ -279,11 +255,11 @@ public class MyCarFragment extends Fragment implements View.OnClickListener {
                 pay = Double.valueOf(closeOrderGasPay.getText().toString());
             final double kilometers = Double.valueOf(closeOrderKilometers.getText().toString());
 
-            new AsyncTask<Void, Double, Double>() {
+          /*  new AsyncTask<Void, Double, Double>() {
                 @Override
                 protected void onPostExecute(Double payment) {
                     pleaseWaitTextView.setVisibility(View.GONE);
-                    if (payment >= -1) { // if closing successful let the client know the final payment
+                    if (payment > -1) { // if closing successful let the client know the final payment
                         payDialog(payment);
                         //activityListener.closeReservation();
 
@@ -296,20 +272,27 @@ public class MyCarFragment extends Fragment implements View.OnClickListener {
                 protected Double doInBackground(Void... params) {
                     try {
 
-                        return  DBManagerFactory.getManager().closeOrder(order.getOrderNumber(), kilometers, pay);
-                    } catch (final Exception e) {
-                        return  -1.0;
+                        return  Double.valueOf(DBManagerFactory.getManager().closeOrder(order.getOrderNumber(), kilometers, pay));
+                    } catch (Exception e) {
+
+                        return  Double.valueOf(-1.0);
                     }
 
                 }
-            }.execute();
-          /*  new AsyncTask<Void, Double, Double>() {
+            }.execute();*/
+            new AsyncTask<Void, Double, Double>() {
+
+                @Override
+                protected void onPreExecute(){
+                    pleaseWaitTextView.setVisibility(View.VISIBLE);
+                }
                 @Override
                 protected void onPostExecute(Double aDouble) {
-                    pleaseWaitTextView.setVisibility(View.GONE);
+
                     if (aDouble >= 0) { // if closing successful let the client know the final payment
                         payDialog(aDouble);
-                        activityListener.closeOrder();
+                        getActivity().onBackPressed();
+
                     }
                 }
 
@@ -324,7 +307,7 @@ public class MyCarFragment extends Fragment implements View.OnClickListener {
                         });
 
                         //returns the final payment
-                        return manager.closeOrder(order.getOrderNumber(), kilometers, pay);
+                        return (DBManagerFactory.getManager().closeOrder(order.getOrderNumber(), kilometers, pay));
                     } catch (final Exception e) {
                         getActivity().runOnUiThread(new Runnable() {
                             @Override
@@ -335,7 +318,7 @@ public class MyCarFragment extends Fragment implements View.OnClickListener {
                         return -1.0; //closing failed
                     }
                 }
-            }.execute();*/
+            }.execute();
         } catch (Exception e) {
             Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_LONG).show();
             return;
@@ -376,6 +359,12 @@ public class MyCarFragment extends Fragment implements View.OnClickListener {
         else
             pay = String.format("%.2f",payment);
         builder.setMessage("your final payment is "+pay+" dollars");
+        builder.setNeutralButton("got it", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                return;
+            }
+        });
         builder.create().show();
     }
 

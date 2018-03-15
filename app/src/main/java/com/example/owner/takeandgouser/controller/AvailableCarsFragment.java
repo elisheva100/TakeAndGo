@@ -122,7 +122,7 @@ public class AvailableCarsFragment extends Fragment {
             }
             HostBrunchTextView.setText("Host branch details:\n"
                     + "parking: " + String.valueOf(hostBrunch.getParking()) + '\n'
-                    + "brunch number: " + String.valueOf(hostBrunch.getBranchNumber()) + '\n'
+                    + "branch number: " + String.valueOf(hostBrunch.getBranchNumber()) + '\n'
                     + "address: " + String.valueOf(hostBrunch.getAdress()));
         }
 

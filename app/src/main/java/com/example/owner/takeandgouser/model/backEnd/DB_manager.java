@@ -36,7 +36,7 @@ public interface DB_manager {
     //region orders
     int addOrder(ContentValues order)throws Exception;
     List<Order> getOrders();
-    double closeOrder(int num, double kilometers, double gasFilled)throws Exception;
+    Double closeOrder(int num, double kilometers, double gasFilled)throws Exception;
     Order getOrder (int num);
    boolean checkOrder();
 
