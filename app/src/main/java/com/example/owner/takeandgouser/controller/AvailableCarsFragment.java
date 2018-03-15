@@ -25,11 +25,9 @@ import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
+ * the fragment will represent the available cars and their details
  */
 public class AvailableCarsFragment extends Fragment {
-    /*ListView listCars;
-    CarAdapter carAdapter;
-    private View view;*/
 
     //definitions:
     private ExpandableListView carsExpandableList;
@@ -53,15 +51,13 @@ public class AvailableCarsFragment extends Fragment {
         // Required empty public constructor
     }
 
-
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_cars, container, false);
         carsExpandableList = ((ExpandableListView) rootView.findViewById(R.id.carsExpandableList));
         searchView = (SearchView) rootView.findViewById(R.id.carsSearchView);
-        try {
+        try { //gets list of available cars from background
             new GetCarsAsyncTask().execute();
         } catch (Exception e) {
             Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_LONG).show();
@@ -70,6 +66,7 @@ public class AvailableCarsFragment extends Fragment {
     }
 
 
+    //the AsyncTask gets list of available cars from background
     private class GetCarsAsyncTask extends AsyncTask<Car, Void, List<Car>> {
 
         @Override
@@ -79,6 +76,7 @@ public class AvailableCarsFragment extends Fragment {
             filterList.clear();
             filterList.addAll(Cars);
             carsExpandableList.setAdapter(myBaseExpandableListAdapter);
+            //filter:
             searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
 
                 @Override
@@ -107,7 +105,7 @@ public class AvailableCarsFragment extends Fragment {
     }
 
 
-
+    //the AsyncTask gets list of brunches from background and find the host one
     private class HostBrunchAsyncTask extends AsyncTask<Void, Void, List<Branch>>
     {
         @Override
@@ -177,6 +175,7 @@ public class AvailableCarsFragment extends Fragment {
         public View getGroupView(int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
             View header = getActivity().getLayoutInflater().inflate(R.layout.car_list_group, parent, false);
             TextView title = (TextView) header.findViewById(R.id.lblCarsListHeader);
+            //the header will represent the Car Number and Model Type
             title.setText("Car Number: " + Cars.get(groupPosition).getNumber()+'\n'+
                      "Model Type: " + Cars.get(groupPosition).getModelType()+"");
             return header;
@@ -188,19 +187,11 @@ public class AvailableCarsFragment extends Fragment {
             Car car= Cars.get(groupPosition);
             //defines text view:
             TextView mileage = (TextView) carsListItem.findViewById(R.id.lblListMileage);
-            //TextView isAvailable = (TextView) carsListItem.findViewById(R.id.lblListIsAvailable);
             HostBrunchTextView = (TextView) carsListItem.findViewById(R.id.lblListHostBrunch); //HostBrunchTextView is globally defined
             //sets text:
             mileage.setText("Mileage: " + String.valueOf(car.getMileage()));
-            /*
-            if(car.isAvailable())
-                isAvailable.setText("The car is available" );
-            else
-                isAvailable.setText("The car is not available" );
-            */
-            //represents host brunch details by asyn task:
             HostBrunchNumber = car.getBranchNumber();
-            try {
+            try { //gets the host brunch from background by AsyncTask
                 new HostBrunchAsyncTask().execute();
             } catch (Exception e) {
                 Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_LONG).show();
@@ -261,47 +252,5 @@ public class AvailableCarsFragment extends Fragment {
         }
     }
 
-
-
-    /*@Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment_available_cars, container, false);
-        initByListView();
-        return view;
-    }
-    public void initByListView()
-    {
-
-        try
-        {
-            new AsyncTask<Car, Void, List<Car>>() {
-                @Override
-                protected void onPostExecute(final List<Car> myItemList) {
-                    setAdapter(myItemList);
-                }
-
-                @Override
-                protected List<Car> doInBackground(Car... params) {
-                    try {
-                        return DBManagerFactory.getManager().getAvailableCars();
-                    }
-                    catch (Exception e) {
-                        return null;
-                    }
-                }
-
-            }.execute();
-        }
-        catch (Exception e) {
-            Toast.makeText(getActivity(),e.getMessage(),Toast.LENGTH_LONG).show();
-        }
-    }
-
-    private void setAdapter(List<Car>carsList) {
-        this.carAdapter = new CarAdapter(this.getContext(),carsList);
-        this.listCars.setAdapter(this.carAdapter);
-
-    }*/
 
 }

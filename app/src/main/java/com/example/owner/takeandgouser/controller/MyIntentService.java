@@ -25,8 +25,8 @@ public class MyIntentService extends IntentService {
     @Override
     public void onCreate() {
         super.onCreate();
+        //creates notification:
         Notification.Builder nBuilder = new Notification.Builder(getBaseContext());
-       // nBuilder.setSmallIcon(R.drawable.ic_menu_share); //TODO to change to onther picture
         nBuilder.setSmallIcon(R.mipmap.ic_sport_car);
         nBuilder.setContentTitle("service");
         nBuilder.setContentText("service is running...");
@@ -36,7 +36,7 @@ public class MyIntentService extends IntentService {
 
 
     @Override
-    public int onStartCommand(@Nullable Intent intent, int flags, int startId) { //TODO check it
+    public int onStartCommand(@Nullable Intent intent, int flags, int startId) {
         return super.onStartCommand(intent, flags, startId);
     }
 
@@ -46,11 +46,10 @@ public class MyIntentService extends IntentService {
          while (true) {
              try {
                  Thread.sleep(10000);
-
                  Intent myIntent = new Intent();
                  myIntent.setAction("CHANGE_CAR_STATUS");
-                 if(DBManagerFactory.getManager().checkOrder())                                {
-
+                 //if an order was closed in the last 10 seconds my intent will be sent to Broadcast reciver
+                 if(DBManagerFactory.getManager().checkOrder()) {
                      myIntent.putExtra("STATUS_CHANGED","status_changed");
                      sendBroadcast(myIntent);
                  }

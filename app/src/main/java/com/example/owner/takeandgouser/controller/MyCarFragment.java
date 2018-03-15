@@ -29,7 +29,6 @@ import java.util.List;
 public class MyCarFragment extends Fragment implements View.OnClickListener {
 
     static int orderNumber = -1;
-    //static double payment = -1.0;
     View view;
     Car car;
     Order order;
@@ -48,18 +47,11 @@ public class MyCarFragment extends Fragment implements View.OnClickListener {
     CheckBox closeOrderNoAddedGas;
     LinearLayout closeOrderGasLayout;
     LinearLayout closeOrderLayout;
-
     LinearLayout openOrderLayout;
-
-
-
-
 
     public MyCarFragment() {
         // Required empty public constructor
     }
-
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -86,8 +78,7 @@ public class MyCarFragment extends Fragment implements View.OnClickListener {
         closeOrderLayout.setVisibility(View.GONE);
         closeOrderGasLayout.setVisibility(View.GONE);
         pleaseWaitTextView.setVisibility(View.GONE);
-
-        submitCloseButton.setOnClickListener(this);
+        submitCloseButton.setOnClickListener(this);//The submit button
 
         //ceckbox listeners to know if to open or close the added gas layout
         closeOrderNoAddedGas.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -107,7 +98,7 @@ public class MyCarFragment extends Fragment implements View.OnClickListener {
             }
         });
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getContext());
-        userID = sharedPreferences.getString("ID", null);
+        userID = sharedPreferences.getString("ID", null); //Gets the user Id.
         getOrder();
 
         return view;
@@ -182,8 +173,6 @@ public class MyCarFragment extends Fragment implements View.OnClickListener {
             openOrderLayout.setVisibility(View.VISIBLE);
             carNumberText.setText("" + car.getNumber());
             pleaseWaitTextView.setVisibility(View.GONE);
-            //closeOrderLayout.setVisibility(View.VISIBLE);
-            //closeOrderGasLayout.setVisibility(View.VISIBLE);
         }
     }
 
@@ -208,8 +197,6 @@ public class MyCarFragment extends Fragment implements View.OnClickListener {
                     car = car_1;
 
                     setViewByOrder();
-
-
                 }
 
             }.execute();
@@ -218,9 +205,6 @@ public class MyCarFragment extends Fragment implements View.OnClickListener {
             Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_LONG).show();
         }
     }
-
-
-
 
     @Override
     public void onClick(View v) {
@@ -239,11 +223,9 @@ public class MyCarFragment extends Fragment implements View.OnClickListener {
         closeOrderLayout.setVisibility(View.VISIBLE);
     }
 
-
-
     /**
-     * collect the data the client filled and validates it, if all good closes the order
-     * and let the client know what is the final payment
+     * collect the data the client filled and validates it, if all good, closes the order
+     * and lets the client know what is the final payment
      */
     private void closeOrderStep2() {
         try {
@@ -254,32 +236,6 @@ public class MyCarFragment extends Fragment implements View.OnClickListener {
             else
                 pay = Double.valueOf(closeOrderGasPay.getText().toString());
             final double kilometers = Double.valueOf(closeOrderKilometers.getText().toString());
-
-          /*  new AsyncTask<Void, Double, Double>() {
-                @Override
-                protected void onPostExecute(Double payment) {
-                    pleaseWaitTextView.setVisibility(View.GONE);
-                    if (payment > -1) { // if closing successful let the client know the final payment
-                        payDialog(payment);
-                        //activityListener.closeReservation();
-
-                        getActivity().onBackPressed();
-
-                    }
-                }
-
-                @Override
-                protected Double doInBackground(Void... params) {
-                    try {
-
-                        return  Double.valueOf(DBManagerFactory.getManager().closeOrder(order.getOrderNumber(), kilometers, pay));
-                    } catch (Exception e) {
-
-                        return  Double.valueOf(-1.0);
-                    }
-
-                }
-            }.execute();*/
             new AsyncTask<Void, Double, Double>() {
 
                 @Override
@@ -349,6 +305,9 @@ public class MyCarFragment extends Fragment implements View.OnClickListener {
         else
             throw new Exception(message);
     }
+       /*
+    activates a dialog to show payment.
+     */
 
     private void payDialog(double payment) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());

@@ -26,14 +26,10 @@ public class AddClientActivity extends AppCompatActivity implements View.OnClick
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        getSupportActionBar().setLogo(R.mipmap.my_car);
-//        getSupportActionBar().setDisplayUseLogoEnabled(true);
-//        getSupportActionBar().setDisplayShowHomeEnabled(true);
+
         setContentView(R.layout.activity_add_client);
         Calendar calender = Calendar.getInstance();
-        //myDay = calender.get(Calendar.DAY_OF_MONTH);
-        //myMonth = calender.get(Calendar.MONTH);
-        //myYear = calender.get(Calendar.YEAR);
+
 
         myDay = 27;
         myMonth = 6;
@@ -57,6 +53,10 @@ public class AddClientActivity extends AppCompatActivity implements View.OnClick
     private Button datePickerButton;
     private EditText CreditCardEditText;
     private Button addClientButton;
+
+    /**
+     * A date picker dialog for calculating the user age.
+     */
     private DatePickerDialog.OnDateSetListener dPickerListener = new DatePickerDialog.OnDateSetListener() {
         @Override
         /**
@@ -114,16 +114,13 @@ public class AddClientActivity extends AppCompatActivity implements View.OnClick
             showDialog(DIALOG);
         } else if (v == addClientButton) {
             addClient();
-            /*
-            clientIdEditText.getText().clear();
-            FirstNameEditText.getText().clear();
-            LastNameEditText.getText().clear();
-            PhoneNumberEditText.getText().clear();
-            EmailEditText.getText().clear();
-            CreditCardEditText.getText().clear();
-            */
+
         }
     }
+
+    /**
+     * This function adds the user to the database.
+     */
 
     private void addClient() {
         final ContentValues contentValues = new ContentValues();
@@ -133,35 +130,35 @@ public class AddClientActivity extends AppCompatActivity implements View.OnClick
                 String _id = (this.clientIdEditText.getText().toString());
                 contentValues.put(AgencyConsts.ClientConst.ID, _id);
             } else {
-                //Toast.makeText(AddClientActivity.this, "Client id is not legal!", Toast.LENGTH_LONG).show();
+
                 strException += "Client's id is not legal!\n";
             }
             if (Legal.isString(FirstNameEditText.getText().toString())) {
                 String firstName = (this.FirstNameEditText.getText().toString());
                 contentValues.put(AgencyConsts.ClientConst.FIRST_NAME, firstName);
             } else {
-                //Toast.makeText(AddClientActivity.this, "Client first name is not valid!", Toast.LENGTH_LONG).show();
+
                 strException += "Client's first name is not valid!!\n";
             }
             if (Legal.isString(LastNameEditText.getText().toString())) {
                 String lastName = (this.LastNameEditText.getText().toString());
                 contentValues.put(AgencyConsts.ClientConst.LAST_NAME, lastName);
             } else {
-                //Toast.makeText(AddClientActivity.this, "Client last name is not valid!", Toast.LENGTH_LONG).show();
+
                 strException += "Client's last name is not valid!!\n";
             }
             if (Legal.isCellPhone(PhoneNumberEditText.getText().toString())) {
                 String phoneNumber = (this.PhoneNumberEditText.getText().toString());
                 contentValues.put(AgencyConsts.ClientConst.CELLPHONE, phoneNumber);
             } else {
-                //Toast.makeText(AddClientActivity.this, "Client phone number is not valid!", Toast.LENGTH_LONG).show();
+
                 strException += "Client's phone number is not valid!!\n";
             }
             if (Legal.isEmailAddres(EmailEditText.getText().toString())) {
                 String email = (this.EmailEditText.getText().toString());
                 contentValues.put(AgencyConsts.ClientConst.EMAIL, email);
             } else {
-                //Toast.makeText(AddClientActivity.this, "Client email address is not valid!", Toast.LENGTH_LONG).show();
+
                 strException += "Client's email address is not valid!\n";
             }
             if (flag) {
@@ -175,17 +172,17 @@ public class AddClientActivity extends AppCompatActivity implements View.OnClick
                 long creditCard = Long.valueOf(this.CreditCardEditText.getText().toString());
                 contentValues.put(AgencyConsts.ClientConst.CREDIT_CARD, creditCard);
             } else {
-                //Toast.makeText(AddClientActivity.this, "Client credit card is not valid!", Toast.LENGTH_LONG).show();
+
                 strException += "Client's credit card is not valid!\n";
 
             }
-            if(strException != "")
+            if(strException != "")//If there is any exception
             {
                 Toast.makeText(AddClientActivity.this, strException, Toast.LENGTH_LONG).show();
                 return;
             }
 
-            new AsyncTask<Void, Void, String>()
+            new AsyncTask<Void, Void, String>() //asynctask gor registering the user.
             {
                 String strError = "";
 
@@ -205,7 +202,7 @@ public class AddClientActivity extends AppCompatActivity implements View.OnClick
                         return String.valueOf(DBManagerFactory.getManager().addClient(contentValues));
                     } catch (Exception e) {
                         strError = e.getMessage();
-                        //Toast.makeText(getBaseContext(), e.getMessage(), Toast.LENGTH_LONG).show();
+
                         return null;
                     }
                 }

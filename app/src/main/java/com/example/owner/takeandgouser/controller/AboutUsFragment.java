@@ -74,6 +74,10 @@ public class AboutUsFragment extends Fragment implements View.OnClickListener {
             mapApp();
         }
     }
+
+    /**
+     * This function redirecting the user fo calling to the company.
+     */
     private void phoneApp()
     {
         Intent intent = new Intent(Intent.ACTION_DIAL);
@@ -81,25 +85,35 @@ public class AboutUsFragment extends Fragment implements View.OnClickListener {
         Intent chooser = Intent.createChooser(intent,"Call");
         startActivity(chooser);
     }
+
+    /**
+     * This function sends mail to the company
+     */
     private void mailApp()
     {
         Intent intent = new Intent(Intent.ACTION_SENDTO);
-        intent.setDataAndType(Uri.parse("mailto:") ,"text/plain");
         String to = "service@takengo.com";
-        intent.putExtra(Intent.EXTRA_EMAIL,to);
-        //intent.setType("text/plain");
+        intent.setData(Uri.parse("mailto:" + to));
         Intent chooser = Intent.createChooser(intent,"Send Email");
         startActivity(chooser);
 
     }
-private void websiteApp()
+
+    /**
+     * This function uploads the company website.
+     */
+    private void websiteApp()
 {
     Intent intent = new Intent(Intent.ACTION_VIEW);
     intent.setData(Uri.parse("https://www.car2go.com/US/en/"));
     Intent chooser = Intent.createChooser(intent,"Open browser");
     startActivity(chooser);
 }
-private void mapApp()
+
+    /**
+     * This function open a map for the company address.
+     */
+    private void mapApp()
 {
     Intent intent = new Intent(Intent.ACTION_VIEW);
     String address = "1 Ben Yehuda Jerusalem Israel";

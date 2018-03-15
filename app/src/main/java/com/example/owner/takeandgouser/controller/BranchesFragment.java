@@ -41,11 +41,10 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
-//import  com.example.owner.takeandgouser.controller.BranchesFragment.MyExpandableListAdapter.setListViewHeightBasedOnChildren;
-
 
 public class BranchesFragment extends Fragment {
 
+    //definitions:
     private boolean flag = false;
     private static int orderNumber = 100000;
     private String userID;
@@ -57,11 +56,16 @@ public class BranchesFragment extends Fragment {
     private SearchView searchView;
     final MyExpandableListAdapter myBaseExpandableListAdapter = new MyExpandableListAdapter();
     ArrayAdapter<Long> carsAdaptor;
-    private int lastExpandedPosition = -1;
+
 
     private static List<Branch> filterList = new ArrayList<>();
     private static List<Branch> Branches = new ArrayList<>();
     private static List<Car> carsByBranch = new ArrayList<>();
+
+    /**
+     * This function open the branch adress map.
+     * @param address the branch adress
+     */
 
     private void openMap(Adress address) {
         Intent intent = new Intent(Intent.ACTION_VIEW);
@@ -75,11 +79,11 @@ public class BranchesFragment extends Fragment {
     }
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_branches, container, false);
         branchesExpandableList = ((ExpandableListView) rootView.findViewById(R.id.branchesExpandableList));
         searchView = (SearchView) rootView.findViewById(R.id.mySearchView);
-        try { new GetBrunchesAsyncTask().execute();}
-
+        try { new GetBrunchesAsyncTask().execute();} //gets list of brunches from background
         catch (Exception e) {
             Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_LONG).show();
         }
@@ -87,6 +91,7 @@ public class BranchesFragment extends Fragment {
         return rootView;
     }
 
+    //AsyncTask gets list of brunches from background
     private class GetBrunchesAsyncTask extends AsyncTask<Branch, Void, List<Branch>> {
 
         @Override
@@ -96,6 +101,7 @@ public class BranchesFragment extends Fragment {
             filterList.clear();
             filterList.addAll(Branches);
             branchesExpandableList.setAdapter(myBaseExpandableListAdapter);
+            //filter:
             searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
 
                 @Override
@@ -110,14 +116,12 @@ public class BranchesFragment extends Fragment {
                     return false;
                 }
             });
-
-
         }
 
         @Override
         protected List<Branch> doInBackground(Branch... params) {
             try {
-                return DBManagerFactory.getManager().getBranches();
+                return DBManagerFactory.getManager().getBranches();//gets the brunches list from background
             } catch (Exception e) {
                 return  null;
             }
@@ -125,6 +129,7 @@ public class BranchesFragment extends Fragment {
     }
 
 
+    //the AsyncTask gets the available cars which belongs to a specific brunch
     private class carByBranchAsyncTask extends AsyncTask<Branch, Void, List<Car>>
     {
         @Override
@@ -132,25 +137,24 @@ public class BranchesFragment extends Fragment {
             carsByBranch = null;
             carsByBranch = listFromBackground;
             if(carsByBranch != null) {
-                Long[] nums = getAllCarsNumbers(carsByBranch);
+                Long[] nums = getAllCarsNumbers(carsByBranch); //nums contains the car number of the available car
                 carsAdaptor = new ArrayAdapter<Long>(getActivity(), android.R.layout.simple_list_item_1, nums);
                 carsListByBranch.setAdapter(carsAdaptor);
                 setListViewHeightBasedOnChildren(carsListByBranch);
             }
-
-
         }
 
         @Override
         protected List<Car> doInBackground(Branch... params) {
             try {
-                return DBManagerFactory.getManager().getAvailableCarsForBranch(params[0]);
+                return DBManagerFactory.getManager().getAvailableCarsForBranch(params[0]);//gets the available cars which belongs to a specific brunch (params[0])
             } catch (Exception e) {
                 return null;
             }
         }
     }
 
+    //the function will return the cars number of the cars in the list
     Long[] getAllCarsNumbers(List<Car> cars)
     {
         Long[] num = new Long[]{};
@@ -206,10 +210,11 @@ public class BranchesFragment extends Fragment {
         public View getGroupView(int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
             View header = getActivity().getLayoutInflater().inflate(R.layout.branch_list_group, parent, false);
             TextView title = (TextView) header.findViewById(R.id.lblBranchesListHeader);
+            //set header text (address):
             title.setText("Address: " + Branches.get(groupPosition).getAdress().toString());
             ImageButton mapView = (ImageButton) header.findViewById(R.id.buttonMap);
-            mapView.setTag(Branches.get(groupPosition).getAdress());
-            mapView.setFocusable(false);
+            mapView.setTag(Branches.get(groupPosition).getAdress());//recognizing the
+            mapView.setFocusable(false);//Allows to open the list.
             mapView.setOnClickListener(this);
 
 
@@ -226,27 +231,24 @@ public class BranchesFragment extends Fragment {
         public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
             View branchesListItem = getActivity().getLayoutInflater().inflate(R.layout.branch_list_item, parent, false);
             Branch branch = Branches.get(groupPosition);
+            //creates text view that contains the parking and brunch number
             TextView parking = (TextView) branchesListItem.findViewById(R.id.lblListParking);
             TextView branchNumber = (TextView) branchesListItem.findViewById(R.id.lblListBranchNumber);
+            //sets text in text view
             parking.setText("parking: " + String.valueOf(branch.getParking()));
             branchNumber.setText("branch number: " + String.valueOf(branch.getBranchNumber()));
 
-
-
             carsListByBranch = (ListView) branchesListItem.findViewById(R.id.carsListView);
-            try {
+            try { //gets all the available cars which belongs to the brunch
                 new carByBranchAsyncTask().execute(branch, null);
             } catch (Exception e) {
                 Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_LONG).show();
             }
-
             carsListByBranch.setOnItemClickListener(new AdapterView.OnItemClickListener()
 
             {
                 @Override
                 public void onItemClick(AdapterView<?> adapterView, View view, final int i, long l) {
-
-
                     AlertDialog.OnClickListener onClickListener = new DialogInterface.OnClickListener() {
 
                         @Override
@@ -264,7 +266,7 @@ public class BranchesFragment extends Fragment {
                             }
                         }
                     };
-
+                    //Open a dialog for renting car
                     AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getContext());
                     alertDialogBuilder.setTitle("add order");
                     alertDialogBuilder.setIcon(R.mipmap.ic_info);
@@ -289,6 +291,7 @@ public class BranchesFragment extends Fragment {
             return true;
         }
 
+        //the filter will sort the branch list according to the city name
         @Override
         public Filter getFilter() {
             return new Filter() {
@@ -305,8 +308,6 @@ public class BranchesFragment extends Fragment {
                         // We perform filtering operation
                         List<Branch> tempList = new ArrayList<Branch>();
                         for (Branch p : filterList) {
-                            ;
-                            //if (p.getAdress().toString().toUpperCase().startsWith(constraint.toString().toUpperCase()))
                             if (p.getAdress().getCity().toString().toUpperCase().startsWith(constraint.toString().toUpperCase()))
                                 tempList.add(p);
                         }
@@ -316,7 +317,6 @@ public class BranchesFragment extends Fragment {
 
                     }
                     return results;
-                    // return null;
                 }
 
                 @Override
@@ -357,11 +357,11 @@ public class BranchesFragment extends Fragment {
 
                 else {
                     for (Order order : orders) {
-                        if (order.getClientId().equals(userID) && order.isOpen() == true) {
+                        if (order.getClientId().equals(userID) && order.isOpen() == true)//If its the matching order
+                        {
                             Toast.makeText(getActivity(), "You already has an open order, please close your priviouse order!", Toast.LENGTH_LONG).show();
-                            //getActivity().getFragmentManager().popBackStack();
                             flag = false;
-                            getActivity().onBackPressed();
+                            getActivity().onBackPressed();//exits the fragment
                             return;
                         } else if (order.getOrderNumber() > orderNumber) {
                             orderNumber = order.getOrderNumber();
@@ -374,9 +374,6 @@ public class BranchesFragment extends Fragment {
                         createOrder(orderNumber, userID, selectedCar.getNumber(), selectedCar.getMileage(), date);
                         carsByBranch.remove(selectedCar);
                         carsListByBranch.invalidateViews();
-                        //carsAdaptor.remove(carsAdaptor.getItem(pos));
-                        //notifyDataSetChanged();
-                        //carsListByBranch.setAdapter(carsAdaptor);
 
                     }
                 }
@@ -393,7 +390,14 @@ public class BranchesFragment extends Fragment {
         }
     }
 
-
+    /**
+     * This function generates an order with all the proper details.
+     * @param orderNumber
+     * @param userID
+     * @param carNumber
+     * @param mileage
+     * @param date
+     */
     private void createOrder(int orderNumber, String userID, final long carNumber, double mileage, String date) {
         final ContentValues contentValues = new ContentValues();
         try {
@@ -413,17 +417,15 @@ public class BranchesFragment extends Fragment {
                     }
                     catch (Exception e)
                     {
-                        //Toast.makeText(getActivity(),e.getMessage(),Toast.LENGTH_LONG);
                         return null ;
                     }
-                    //DBManagerFactory.getManager().updateCar(CarNumber);
 
                 }
 
                 @Override
-                protected void onPostExecute(String numOrder) {
-                    //Toast.makeText(getActivity(), "Order number: " + numOrder + " added successfully", Toast.LENGTH_LONG).show();
-                    AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                protected void onPostExecute(String numOrder)
+                {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(getContext());//A dialog for confirmation the order.
                     builder.setIcon(R.mipmap.ic_action_check);
                     String message = "Order number: " + numOrder + " opened successfully";
                     builder.setMessage(message);
@@ -443,17 +445,15 @@ public class BranchesFragment extends Fragment {
         }
     }
 
-
-
-
-
-
-
+    /**
+     * Sets the expandable list elements height.
+     * @param carsListByBranch
+     */
 
     public static void setListViewHeightBasedOnChildren(ListView carsListByBranch) {
         ListAdapter listAdapter = carsListByBranch.getAdapter();
         if (listAdapter == null) {
-            // pre-condition
+
             return;
 
         }
@@ -466,7 +466,7 @@ public class BranchesFragment extends Fragment {
         }
 
         ViewGroup.LayoutParams params = carsListByBranch.getLayoutParams();
-        params.height = totalHeight - listAdapter.getCount();// + (carsListByBranch.getDividerHeight() * (listAdapter.getCount() - 1));
+        params.height = totalHeight - listAdapter.getCount();
         carsListByBranch.setLayoutParams(params);
         carsListByBranch.requestLayout();
     }

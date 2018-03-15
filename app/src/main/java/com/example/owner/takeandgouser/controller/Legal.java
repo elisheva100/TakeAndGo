@@ -117,6 +117,12 @@ public class Legal {
 
         return true;
     }
+
+    /**
+     * This function checks if the address email is a valid address.
+     * @param email
+     * @return
+     */
     public static boolean isEmailAddres(String email)
     {
         if(email == null)
